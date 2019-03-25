@@ -1,0 +1,11 @@
+body {
+    padding-top:80px;
+}
+
+.hidden {
+    display:none;
+}
+
+.nav-item {
+    margin: 4px 10px !important;
+}
