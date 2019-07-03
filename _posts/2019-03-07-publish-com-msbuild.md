@@ -2,7 +2,7 @@
 layout: post
 author: Eryx
 title: Deploy de aplicações utilizando linha de comando
-date: 15/07/2019
+date: 03/07/2019
 ---
 
 Você pode definir as propriedades de publicação de sua aplicação no Visual Studio e então utilizar o utilitário MSBuild.exe através de linha de comando para agilizar e ou automatizar o processo de geração dos arquivos para deploy. 
