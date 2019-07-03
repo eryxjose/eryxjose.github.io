@@ -5,8 +5,6 @@ title: Deploy de aplicações utilizando linha de comando
 date: 15/07/2014
 ---
 
-# Deploy de aplicações utilizando linha de comando
-
 Você pode definir as propriedades de publicação de sua aplicação no Visual Studio e então utilizar o utilitário MSBuild.exe através de linha de comando para agilizar e ou automatizar o processo de geração dos arquivos para deploy. 
 
 Comando msbuild para geração dos arquivos de deploy para a solution D:\repos\survey\adm\SurveyADM.sln no diretório D:\ClickOnceDeploymentFiles\surveyadm\.
