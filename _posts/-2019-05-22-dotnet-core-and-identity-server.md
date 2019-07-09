@@ -81,6 +81,8 @@ NuGet Packages para projeto Client
 
 # Referências
 
+[OpenID Connect Core 1.0 incorporating errata set 1](https://openid.net/specs/openid-connect-core-1_0.html)
+
 [Learn .NET Core and the .NET Core SDK tools by exploring these Tutorials](https://docs.microsoft.com/pt-br/dotnet/core/tutorials/)
 
 [.NET Core Guide](https://docs.microsoft.com/pt-br/dotnet/core/)
