@@ -110,6 +110,20 @@ O método AuthenticateAsync valida usuário e senha informados.
 		return null;
 	}
 
+A autenticação do código acima utiliza o método PasswordSignInAsync da instância de SigninManager<ApplicationUser> mas você pode autenticar o usuário e senha por diferentes métodos de autenticação contanto que o retorno seja uma instância de LoginViewModel. Por exemplo:
+
+	private UserModel Authenticate(LoginModel login)
+	{
+		UserModel user = null;
+
+		if (login.Username == "eryx" && login.Password == "secret")
+		{
+			user = new UserModel { Name = "Eryx", Email = "eryx.guimaraes@gmail.com" };
+		}
+		return user;
+	}
+
+
 O método BuildToken gera o token JWT com o método WriteToken utilizando o token criado com a instância do método JwtSecurityToken.
 
 	private string BuildToken(LoginViewModel user)
