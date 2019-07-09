@@ -137,6 +137,26 @@ O método BuildToken gera o token JWT com o método WriteToken utilizando o toke
 		return new JwtSecurityTokenHandler().WriteToken(token);
 	}
 
+## Teste do endpoint para alterar senha utilizando Postman
+
+Você pode obter o token JWT enviando uma requisição POST para o endpoint http://localhost:52553/api/token enviando o JSON na aba Body do Postman com os campo username e password conforme exemplo abaixo.
+
+	{
+		"username": "eryx.guimaraes@gmail.com",
+		"password": "12qw!@QW"
+	}
+
+Caso o usuário e senha informados sejam válidos, será retornado o token json ilustrado a seguir.
+
+	{
+		"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjI2NzUwMzUsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTI1NTMvIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDo1MjU1My8ifQ.lvbcV1N0_b0qgfyCLT9sgBCvcIjFMxSAUZcW3CpSjpY"
+	}
+
+Em seguida, utilize o token obtido para fazer uma requisição ao endpoint de alteração da senha (Account/ChangePass). Crie uma requisição POST para o url http://localhost:52553/Account/ChangePass/?returnUrl=/home/index e envie o token no Header através do parâmetro Authorization com o valor Bearer seguido de espaço e o token obtido no passo anterior. O Body da requisição deverá conter os campos OldPassword, NewPassword e ConfirmPassword com respectivos valores.
+
+
+
+
 ## Referências
 
 Documentação oficial
