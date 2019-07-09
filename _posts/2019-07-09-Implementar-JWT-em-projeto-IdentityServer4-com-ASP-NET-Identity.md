@@ -48,7 +48,6 @@ Criar TokenController para fornecer endpoint para criação de tokens JWT em Tok
 
 Este controller inicializa SignInManager<ApplicationUser> no construtor para ter acesso aos métodos de autenticação ASP.NET por usuário e senha.
 
-	...
 	private IConfiguration _config;
 	private readonly SignInManager<ApplicationUser> _signInManager;
 
@@ -57,7 +56,6 @@ Este controller inicializa SignInManager<ApplicationUser> no construtor para ter
 		_config = config;
 		_signInManager = signInManager;
 	}
-	...
 
 As classes LoginModel e UserModel representam as informações de login e usuário referenciadas pelo TokenController.
 
@@ -123,7 +121,6 @@ A autenticação do código acima utiliza o método PasswordSignInAsync da inst�
 		return user;
 	}
 
-
 O método BuildToken gera o token JWT com o método WriteToken utilizando o token criado com a instância do método JwtSecurityToken.
 
 	private string BuildToken(LoginViewModel user)
@@ -139,7 +136,6 @@ O método BuildToken gera o token JWT com o método WriteToken utilizando o toke
 
 		return new JwtSecurityTokenHandler().WriteToken(token);
 	}
-
 
 ## Referências
 
