@@ -35,7 +35,7 @@ Incluir chave de configuração para fornecer Key e Issuer para as requisições
 	
 	{
 	  "ConnectionStrings": {
-		"DefaultConnection": "Data Source=db-stigeo-dev12.labtrans.ufsc.br\\devweb2012;database=bd_dnit_identity_server;trusted_connection=no;User ID=observatorio;Password=Stigeo_1_adm_1"
+		"DefaultConnection": "Data Source=db-stigeo-...;database=...;trusted_connection=no;User ID=observatorio;Password=..."
 	  },
 	  "Jwt": {
 		"Key": "veryVerySecretKey",
