@@ -8,7 +8,7 @@ date: 25/03/2019
 
 
 
-### Referências
+# Referências
 
 Orientações para alterações no Registro.br <https://github.com/orige/githubpages.registro.br>
 

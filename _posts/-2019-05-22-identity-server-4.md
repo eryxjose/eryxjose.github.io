@@ -1,26 +1,49 @@
 ---
 layout: post
 author: Eryx
-title: O Framework .NET Core e o Identity Server
+title: Visão Geral do Identity Server 4
 date: 22/05/2019
 ---
 
+Visão Geral do IdentityServer4
+
 # Resumo
 
+O IdentityServer4 é um framework OpenID Connect e OAuth 2.0 para ASP.NET Core.
 
+* Suporta OpenID e OAuth 2.0
+* APS.NET Core 2
+* Autenticação centralizada (Autenticação como serviço)
+* Diferentes tipos de aplicação (Web Apps, Native Apps, Web Services, Web APIs, etc.) podem utilizar o mesmo serviço de autenticação
+* Single Sign On (SSO)
+* APIs Access Control
+* Open Source instalado via NuGet 
+* Registro de diferentes tipos de clientes, usuários e recursos, publicação de tokens e autenticação centralizada.
 
-Plugins Google Chrome
+# Interação dos Componentes
+
+           Identity Server
+                  |
+                  |
+    Users ---- Clients ---- Resources
+
+# Plugins Google Chrome 
 
 * Json Formater
-* Postman
+* Postman (aplicativo para instalação)
 
 # Instalação .NET Core 
 
 Link para download do Framework .NET Core
 https://dotnet.microsoft.com/download
 
+# NuGet Packages
 
-# Criar Blank Solution
+* IdentityServer4 e updates
+* IdentityServer4.EntityFramework v2.3.2
+* IdentityServer4.EntityFramework.Storage v2.3.1
+
+# Blank Solution
 
 * Execute o Visual Studio.
 * Clique em File / New Project.
@@ -40,7 +63,33 @@ Observações:
 
 # Pasta Models
 
+A pasta Models contém as classes de entidades da aplicação e a classe de acesso ao objeto de dados DbContext no caso de utilizar o Entity Framework para encapsular o acesso a dados.
+
+Veja um exemplo de classe para entidade Clientes.
+
+    public class Cliente 
+    {
+        public long Id { get; set; }
+        public string PrimeiroNome { get; set; }
+        public string Sobrenome { get; set; }
+    }
+
+Veja um exemplo de classe de encapsulamento de dados (Context).
+
+    public class AppContext : DbContext
+    {
+        public AppContext(DbContextOptions<AppContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Cliente> Clientes { get; set; }
+    }
+
+Em aplicações profissionais destinadas ao ambiente de produção é recomendado empregar o padrão Repository para encapsular os componentes de acesso a dados.
+
 # Pasta Controllers
+
 
 # Properties / launchSettings.json
 
@@ -62,17 +111,6 @@ O valor da propriedade launchUrl devem referenciar api/nome-do-controller. Para 
 # Startup.cs
 
 
-
-# Identity Server 4
-
-NuGet Packages para projeto IdentityServer
-
-* IdentityServer4 e updates
-* IdentityServer4.EntityFramework v2.3.2
-* IdentityServer4.EntityFramework.Storage v2.3.1
-
-NuGet Packages para projeto Client
-
 * IdentityModel
 
     https://github.com/IdentityModel/IdentityModel
@@ -80,8 +118,6 @@ NuGet Packages para projeto Client
 
 
 # Referências
-
-[OpenID Connect Core 1.0 incorporating errata set 1](https://openid.net/specs/openid-connect-core-1_0.html)
 
 [Learn .NET Core and the .NET Core SDK tools by exploring these Tutorials](https://docs.microsoft.com/pt-br/dotnet/core/tutorials/)
 
