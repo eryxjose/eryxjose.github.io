@@ -9,3 +9,10 @@ body {
 .nav-item {
     margin: 4px 10px !important;
 }
+
+.twitter-timeline {
+    height: 280px;
+    overflow: auto;
+}
+
+
