@@ -10,7 +10,7 @@ body {
     margin: 4px 10px !important;
 }
 
-.twitter-timeline {
+#twitter-timeline {
     height: 280px;
     overflow: auto;
 }
