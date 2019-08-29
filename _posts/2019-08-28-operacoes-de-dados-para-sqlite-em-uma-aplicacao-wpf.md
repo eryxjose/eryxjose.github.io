@@ -7,7 +7,7 @@ date: 28/08/2019
 
 Este texto contém exemplos de código para operações de dados utilizando o pacote NuGet sqlite-net-pcl.
 
-# Configurações
+## Configurações
 
 O pacote NuGet sqlite-net-pcl fornece recursos para armazenamento de dados em SQLite3 para .NET, .NET Core, e Mono. O pacote contém recursos ORM com base em padrões e atributos que possibilitam utilizar a biblioteca sem alterações no modelo de dados da sua aplicação.
 
@@ -48,7 +48,7 @@ Veja um resumo dos atributos utilizados no código acima.
 * MaxLength - atributo para definir o tamanho do campo em caracteres (ex.: [MaxLength(50)]).
 * Unique - atributo para definir restrição de valores únicos para o campo.
 
-# Consulta dados sem parâmetros
+## Consulta dados sem parâmetros
 
 O código abaixo inicia uma conexão com o banco de dados, cria a tabela simulacoes caso não exista, obtém os dados da tabela e preenche na variável simulacoes, e em seguida, atribui o objeto de dados ao grid de simulações.
 
@@ -92,7 +92,7 @@ A primeira versão de código (abaixo) utilizava outros componentes NuGet (ex.: 
 		}
 	}
 
-# Consulta dados com parâmetros
+## Consulta dados com parâmetros
 
 Você pode utilizar LINQ para definir parâmetros para consulta e obtenção de dados. Veja o exemplo a seguir.
 
@@ -116,7 +116,7 @@ Mais uma vez, compare com o código abaixo e observe que a abordagem acima utili
 		}
 	}
 
-# Inserindo registros
+## Inserindo registros
 
 Para inserir dados, crie uma instância do objeto a ser inserido e utilize o comando Insert. Veja exemplo a seguir.
 
@@ -150,13 +150,13 @@ Vale reforçar a diferença na quantidade de código necessário para executar a
 	
 	...
 
-# Resumo
+## Resumo
 
 A biblioteca sqlite-net-pcl funciona de maneira semelhante a outros ORMs. Depois de criar uma instância de um objeto novo a ser inserido e enviá-lo como parâmetro para a função Insert() o campo identificador (ex.: Id) será preenchido automaticamente depois que a operação de inclusão for concluída.
 
 Observe que não foi necessário fechar explicitamente o objeto de conexão (ex.: conn.close()) porque utilizamos o comando using que faz o fechamento da conexão automaticamente. 
 
-# Referências
+## Referências
 
 [Repositório GitHub sqlite-net-pcl](https://github.com/praeclarum/sqlite-net)
 
