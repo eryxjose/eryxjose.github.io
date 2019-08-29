@@ -1,9 +1,11 @@
 ---
 layout: post
 author: Eryx
-title: Melhores práticas para trabalhar com HTML
-date: 07/08/2016
+title: Operações de dados para SQLite em uma aplicação WPF
+date: 28/08/2019
 ---
+
+
 
 Este texto contém exemplos de código para operações de dados utilizando o pacote NuGet sqlite-net-pcl.
 
