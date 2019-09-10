@@ -5,9 +5,19 @@ title: Implementar JWT em projeto IdentityServer4 com ASP.NET Identity
 date: 09/07/2019
 ---
 
-Implementação de tokens de autenticação JWT em um projeto IdentityServer4 com ASP.NET Identity.
+Este texto contém orientações para implantação de tokens de autenticação JWT em um projeto IdentityServer4 com ASP.NET Identity.
 
-Incluir middleware JWTBearer em ConfigureServices na classe startup.cs
+O cenário ideal é manter um projeto IdentityServer4 independente (separado) e implementar o ASP.NET Identity com controle de usuários e perfis para cada aplicação. No momento em que um End Point 
+
+JSON Web Tokens (JWT) é um padrão para representação de claims entre duas partes de maneira segura. Veja abaixo a definição oficial no site (jwt.io)[https://jwt.io/].
+
+----
+	JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties.
+----
+
+
+
+Incluir middleware JWTBearer em ConfigureServices na classe startup.cs do seu projeto IdentityServer4.
 
 	services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 		.AddJwtBearer(options =>
@@ -59,36 +69,36 @@ Este controller inicializa SignInManager<ApplicationUser> no construtor para ter
 
 As classes LoginModel e UserModel representam as informações de login e usuário referenciadas pelo TokenController.
 
-  public class LoginModel
-  {
-      public string Username { get; set; }
-      public string Password { get; set; }
-  }
+	public class LoginModel
+	{
+		public string Username { get; set; }
+		public string Password { get; set; }
+	}
 
-  private class UserModel
-  {
-      public string Name { get; set; }
-      public string Email { get; set; }
-      public DateTime Birthdate { get; set; }
-  }
+	private class UserModel
+	{
+		public string Name { get; set; }
+		public string Email { get; set; }
+		public DateTime Birthdate { get; set; }
+	}
 
 O método CreateTokenAsyn coordena a geração do token JWT.
 	
-  [AllowAnonymous]
-  [HttpPost]
-  public async Task<IActionResult> CreateTokenAsync([FromBody]LoginModel login)
-  {
-      IActionResult response = Unauthorized();
-      var user = await AuthenticateAsync(login);
+	[AllowAnonymous]
+	[HttpPost]
+	public async Task<IActionResult> CreateTokenAsync([FromBody]LoginModel login)
+	{
+		IActionResult response = Unauthorized();
+		var user = await AuthenticateAsync(login);
 
-      if (user != null)
-      {
-          var tokenString = BuildToken(user);
-          response = Ok(new { token = tokenString });
-      }
+		if (user != null)
+		{
+			var tokenString = BuildToken(user);
+			response = Ok(new { token = tokenString });
+		}
 
-      return response;
-  }
+		return response;
+	}
 
 O método AuthenticateAsync valida usuário e senha informados.
 
