@@ -2,7 +2,7 @@
 layout: post
 author: Eryx
 title: Implementação manual do ASP.NET Core Identity 
-date: 06/09/2019
+date: 11/09/2019
 ---
 
 
