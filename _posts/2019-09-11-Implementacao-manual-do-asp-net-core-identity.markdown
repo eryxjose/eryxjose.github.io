@@ -5,8 +5,7 @@ title: Implementação manual do ASP.NET Core Identity
 date: 11/09/2019
 ---
 
-
-Registro do ASP.NET Core em uma aplicação usando injeção de dependência, criação de um User Store personalizado e o registro e autenticação de usuários.
+Este post aborda o registro do ASP.NET Core Identity em uma aplicação usando injeção de dependência, estrutura de armazenamento e o registro e autenticação de usuários.
 
 # Implementando ASP.NET Core
 
