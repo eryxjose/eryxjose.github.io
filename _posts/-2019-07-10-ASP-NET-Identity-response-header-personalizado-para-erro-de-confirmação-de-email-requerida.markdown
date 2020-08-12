@@ -1,9 +1,11 @@
 ---
 layout: post
 author: Eryx
-title: ASP.NET Identity response header personalizado para erro de confirmação de email requerida
+title: Configuração para confirmação de email no ASP.NET Identity
 date: 10/07/2019
 ---
+
+
 
 A regra inicial para validação de confirmação do email inicialmente foi implementada através de configuração do middleware na classe startup.cs de maneira que as requisições para a aplicação são interceptadas e validadas antes que o endpoint seja executado. Neste cenário, a aplicação retornará um erro 400 de requisição inválida.
 
