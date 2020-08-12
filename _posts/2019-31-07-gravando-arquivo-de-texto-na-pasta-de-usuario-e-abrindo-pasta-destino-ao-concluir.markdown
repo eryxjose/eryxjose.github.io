@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Eryx
-title: Gravando arquivo de texto na pasta de usuário e abrindo pasta destino ao concluir
+title: Arquivo de texto na pasta do usuário do Windows
 date: 31/07/2019
 ---
 
@@ -29,6 +29,8 @@ A criação de arquivos e pastas deve ser feita apenas no ambiente de usuário d
 		}
 	}
 
-O código acima será executado ao clicar no botão para gerar o arquivo. A lógica obtém o diretório do perfil de usuário, concatena com o nome do arquivo, garante que um novo arquivo seja criado sempre que o código for executado, e emseguida utiliza o método File.CreateText do objeto StreamWriter para gerar o arquivo e então mostra o conteúdo da pasta passando o diretório como argumento para Process.Start().
+O código acima será executado ao clicar no botão para gerar o arquivo. 
+
+A lógica obtém o diretório do perfil de usuário, concatena com o nome do arquivo, garante que um novo arquivo seja criado sempre que o código for executado, e em seguida utiliza o método File.CreateText do objeto StreamWriter para gerar o arquivo. Em seguida utilize Process.Start() para abrir a respectiva pasta.
 
 
