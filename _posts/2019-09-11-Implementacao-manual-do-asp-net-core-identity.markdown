@@ -7,9 +7,9 @@ date: 11/09/2019
 
 Este post aborda o registro do ASP.NET Core Identity em uma aplicação usando injeção de dependência, estrutura de armazenamento e o registro e autenticação de usuários.
 
-# Implementando ASP.NET Core
+# Implementando ASP.NET Core Identity
 
-Crie uma aplicação com base no template ASP.NET Core Web Application selecionando Web Application Model-View-Controller (MVC) e a versão ASP.NET Core 2.0 (Framework .NET Core) e não inclua autenticação de usuário.
+Crie uma aplicação com base no template ASP.NET Core Web Application selecionando Web Application Model-View-Controller (MVC) com a versão ASP.NET Core 2.0 (Framework .NET Core) e não inclua autenticação de usuário.
 
 * Inclui por padrão o pacote NuGet Microsoft.AspNetCore.All (2.0) e respectivas dependências.
 
@@ -19,7 +19,7 @@ Instale o pacote Microsoft.Extnsions.Identity.Core através do Package Manage Co
 
 	> Install-Package Microsoft.Extensions.Identity.Core
 
-Registre o asp.net identity no método ConfigureServices da classe Startup.cs utilizando AddIdentityCore<classe-de-usuario>
+Registre o ASP.NET Identity no método ConfigureServices da classe Startup.cs utilizando AddIdentityCore<classe-de-usuario>, em nosso exemplo AppUser.
 
 	...
 	
@@ -379,6 +379,4 @@ Exemplo de código para fazer Mock de UserManager para testes unitários.
 	mgr.Object.PasswordValidators.Add(new PasswordValidator<TUser>());
 
 Ao instanciar o Mock acima, o único parâmetro obrigatório e exemplificado no código é uma instância de UserStore.
-
-Este texto contém exemplos de código para implementação do ASP.NET Core Identity disponibilizados para aplicação através da implementação de IUserStore e recursos disponíveis em UserManager<T>.
 
