@@ -1,23 +1,19 @@
 ---
 layout: post
 author: Eryx
-title: Implementar JWT em projeto IdentityServer4 com ASP.NET Identity
+title: Implementando JWT em projeto IdentityServer4 com ASP.NET Identity
 date: 09/07/2019
 ---
 
 Este texto contém orientações para implantação de tokens de autenticação JWT em um projeto IdentityServer4 com ASP.NET Identity.
 
-O cenário ideal é manter um projeto IdentityServer4 independente (separado) e implementar o ASP.NET Identity com controle de usuários e perfis para cada aplicação. No momento em que um End Point 
-
-JSON Web Tokens (JWT) é um padrão para representação de claims entre duas partes de maneira segura. Veja abaixo a definição oficial no site (jwt.io)[https://jwt.io/].
+O cenário ideal é manter um projeto IdentityServer4 independente (separado) e implementar o ASP.NET Identity com controle de usuários e perfis para cada aplicação.  
 
 ----
 	JSON Web Tokens are an open, industry standard RFC 7519 method for representing claims securely between two parties.
 ----
 
-
-
-Incluir middleware JWTBearer em ConfigureServices na classe startup.cs do seu projeto IdentityServer4.
+Inclua o middleware JWTBearer em ConfigureServices na classe startup.cs do seu projeto IdentityServer4.
 
 	services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 		.AddJwtBearer(options =>
