@@ -6,13 +6,12 @@ date: 20/02/2017
 ---
 
 A tentativa de acesso não autorizado ao arquivo de configurações do seu site é uma das estratégias de ataque mais utilizadas para aplicativos e sites na internet.
+
 As aplicações e sites que rodam sobre a infraestrutura de serviços da plataforma Microsoft, utilizam arquivos de configuração para determinar uma série de parâmetros do seu funcionamento, inclusive informações denominadas sensitivas, tais como senhas, servidores, contas de e-mail, entre outras. 
 
 O acesso a este arquivo e respectivas informações não está disponível por meios normais via internet, mas existem meios de obter acesso não autorizado. Por esta razão, estas informações precisam ser mantidas em um formato criptografado, que proteja dados sigilosos mesmo que haja acesso direto ao referido arquivo de configurações.
 
 Veja uma ilustração do arquivo de configurações antes e depois de modificado.
-
-
 
 Do ponto de vista do desenvolvedor, a estratégia é criptografar o arquivo web.config antes de enviá-lo para o ambiente de produção.
 
