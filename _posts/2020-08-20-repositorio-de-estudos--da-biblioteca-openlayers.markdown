@@ -9,7 +9,7 @@ Recentemente adquiri e iniciei o curso "Openlayers 6 From Scratch With A Project
 
 Criei uma aplicação no repositório github abaixo para codificar e brincar com a biblioteca para conhecer os recursos disponíveis.
 
-	https://github.com/eryxjose/openlayers-webmap
+[https://github.com/eryxjose/openlayers-webmap](https://github.com/eryxjose/openlayers-webmap)
 
 As orientações para clonar e iniciar a aplicação assim como pré-requisitos estão no arquivo readme na página do repositório.
 
