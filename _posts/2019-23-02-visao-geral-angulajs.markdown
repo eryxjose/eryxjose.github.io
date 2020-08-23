@@ -48,10 +48,6 @@ Expressões são construções sintáticas semelhantes ao código JavaScript e u
 
 Este recurso não oferece suprote a comandos de controle de fluxo ou loops, nem declaração de funções, entre outros. Veja uma lista das diferenças em https://docs.angularjs.org/guide/expression.
 
-# Dirty Checking
-
-De maneira resumida, você pode criar propriedades de objetos de maneira literal, sem obrigatoriedade de definir get e set.
-
 # Core Framework e Modules
 
 O Módulo Principal ou Core Module do AngularJS está disponível para sua aplicação quando você inclui uma referência ao framework utilizando o atributo src da tag script conforme exemplo a seguir.
