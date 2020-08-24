@@ -51,10 +51,10 @@ permalink: /sobre/
             Background
         </h1>
         <p>
-            Iniciei minha carreira no desenvolvimento de software em 1986 com apenas 13 anos de idade programando na linguagem Basic e seguindo com Dbase (II, III, e IV), Clipper e depois de passar alguns anos da dedicado aos esportes retornei em 1996 depois de um período de atualizações para o mundo do ambiente operacional gráfico com o Windows 3.11 na época. 
+            Iniciei meu aprendizado no desenvolvimento de software em 1986 com apenas 13 anos de idade programando na linguagem Basic e seguindo com Dbase (II, III, e IV), Clipper e depois de passar alguns anos da dedicado aos esportes retornei em 1996 depois de um período de atualizações para o mundo do ambiente operacional gráfico com o Windows 3.11 na época. 
         </p>
         <p>
-            Sempre empolgado com o uso da tecnologia, obtive a certificação oficial Microsoft em Internet Information Server 4.0 e consegui meu primeiro emprego como desenvolvedor web no ano 2000 na empresa Connet Networking Consulting que era Solution Provider da Microsoft. 
+            Sempre empolgado com o uso da tecnologia, obtive a certificação oficial Microsoft em Internet Information Server 4.0 e consegui meu primeiro emprego como desenvolvedor web no ano 2000 na empresa Connet Networking Consulting. 
         </p>
         <p>
             Trabalhei alguns anos na Escelsanet, maior provedor de internet do estado, e como professor de informática em diferentes instituições e empresas, além de alguns trabalhos como autônomo.         
@@ -63,7 +63,7 @@ permalink: /sobre/
             Em 2004 fundei a Dinamicaweb com dois amigos onde criamos e mantivemos sites de grandes empresas por alguns anos. Após este período, trabalhei em empresas de software de diferentes segmentos como desenvolvedor de software e analista de sistemas.         
         </p>
         <p>
-            Atualmente trabalho na empresa Labtrans Engenharia há pouco mais de um ano e participei de diferentes projetos do governo federal incluindo o Portal Gerenciao Webportos, DNIT ICM e Portal Educacional, Hórus da Secretaria Aviação Civil, entre outros.        
+            Atualmente trabalho na empresa Labtrans Engenharia há pouco mais de um ano e participei de diferentes projetos do governo federal incluindo o Portal Gerencial Webportos, DNIT ICM e Portal Educacional, Hórus da Secretaria Aviação Civil, entre outros.        
         </p>
         
     </div>
