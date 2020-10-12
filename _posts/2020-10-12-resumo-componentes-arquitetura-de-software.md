@@ -13,7 +13,7 @@ Quando o tamanho do software demandou a fragmentação do aplicativo em diferent
 
 Uncle Bob no livro Clean Architecture, relaciona um conjunto de princípios para definir o acoplamento e a coesão na criação de componentes. Em relação a coesão, os princípios ajudam a definir quais classes pertencem a quais componentes. E os princípios para o acoplamento, orientam sobre a relação entre os componentes. O autor destaca que a arquitetura do software não é criada no início, mas evolui e é construída conforme o sistema se modifica e evolui.
 
-> "The component structure cannot be designed from the top down. It is not one of the first things about the system that is designed, but rather evolves as the system grows and changes."
+> The component structure cannot be designed from the top down. It is not one of the first things about the system that is designed, but rather evolves as the system grows and changes.
 
 Então resumindo, componentes são arquivos binários individuais que podem ser carregados em tempo de execução quando são necessários. É comum por exemplo, separar as regras de negócio da sua aplicação em um componente e as funções de acesso a dados em outro. A criação e o relacionamento entre estes componentes é regida pelos princípios citados anteriormente.
 
