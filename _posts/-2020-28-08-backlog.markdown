@@ -1,0 +1,18 @@
+---
+layout: post
+author: Eryx
+title: Backlog
+date: 28/08/2020
+---
+
+# Tópicos para séries de posts
+
+* SysInternals
+* Vida de Programador
+* Visão de Mundo
+* Aplicações Web Map Service (WMS)
+* Arquitetura e Desenvolvimento de Software
+* Redes e Segurança
+* Era da Informação, Conhecimento e Inovação
+
+

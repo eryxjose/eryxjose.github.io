@@ -5,6 +5,8 @@ title: Refatoramento com foco em Clean Code
 date: 22/05/2019
 ---
 
+...
+
 # Nomeclatura
 
 Nomes tornam o código compreensível. Os exemplo abaixo demonstram nomes que não contribuem para o entendimento do código. Ao contrário, torna o trabalho de manutenção mais difícil porque será necessário avaliar diferentes trechos de código, possivelmente em diferentes arquivos, para compreender a lógica utilizada. O tempo necessário para quaisquer alterações aumenta drasticamente assim como o custo envolvido. 

@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Eryx
-title: Implementando JWT em projeto IdentityServer4 com ASP.NET Identity
+title: Implementando JWT em Projeto ASP.NET Core IdentityServer4 com ASP.NET Identity
 date: 09/07/2019
 ---
 
