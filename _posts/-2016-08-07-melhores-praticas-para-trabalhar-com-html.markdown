@@ -5,44 +5,51 @@ title: Melhores práticas para trabalhar com HTML
 date: 07/08/2016
 ---
 
-Este texto apresenta uma seleção de melhores práticas relacionadas ao uso do html em sites e aplicações para web. São dicas relevantes para melhorar o ranking do site nos buscadores, para garantir a integridade do código, validações de terceiros.
+Este texto apresenta uma seleção de melhores práticas relacionadas ao uso do html em sites e aplicações para web. São dicas relevantes para melhorar o ranking do site nos buscadores, para garantir a integridade do código, e também para ferramentas de validação.
 
-### Atenção com a abertura e fechamento de tags
+## Atenção com a abertura e fechamento de tags
 
 O não-fechamento de Tags HTML pode causar problemas de validação e compatibilidade do seu código com os padrões atuais. 
-A imagem abaixo ilustra uma estrutura corretamente codificada em HTML.
 
-### Utilize títulos significativos para a tag Title
+## Utilize títulos significativos para a tag Title
 
 O título de cada página do seu site tem duas funções importantes, informar os visitantes sobre o conteúdo e possibilitar a indexação correta de suas páginas no ranking de resultados dos buscadores. 
 
-O texto da Tag <title></title> será apresentado na barra de título do navegador quando a página estiver carregada, e também compõe o link de acesso ao seu site nos resultados das pesquisas. Veja um exemplo a seguir:
+O texto da Tag <title></title> será apresentado na barra de título do navegador quando a página estiver carregada, e também compõe o link de acesso ao seu site nos resultados das pesquisas. 
 
-### Utilize Meta Tags descritivas
+## Utilize Meta Tags descritivas
 
 O conteúdo da tag <meta name=”description” content=”…”/> será exibido nos resultados de busca, abaixo do título. O texto apresentado deve resumir o conteúdo exibido na página.
-A imagem abaixo ilustra o uso da tag <meta> para descrição do conteúdo que será exibido na mesma página do exemplo anterior:
 
-### Utilize o atributo Meta Keyword
+## Utilize o atributo Meta Keyword
+
 Os buscadores também utilizam as palavras especificadas na Tag <meta name=”keywords” content=”…”/> para indexar o conteúdo da página. É importante utilizar palavras relevantes ao conteúdo exibido.
-A imagem abaixo apresenta um exemplo do uso da Tag <meta> para definição das palavras-chave em relação ao conteúdo apresentado na página de exemplo anterior:
 
+## Limite o uso de estilos inline nas tags
 
-### Limite o uso de estilos inline nas tags
-Não inclua formatações CSS diretamente em tags através doatributo style (ex: style=”{ width:100px; }”). O uso de estilos inline, como é conhecida esta prática, não faz uso das maior vantegens com o uso de CSS.
+Não inclua formatações CSS diretamente em tags através do atributo style (ex: style=”{ width:100px; }”). O uso de estilos inline, como é conhecida esta prática, apresenta os seguintes problemas:
+
+* Poluição visual 
+* Dificuldade para entendimento do código
+* Não reaproveitamento
+* Demonstra falta de planejamento no uso de estilos
+* Peso desnecessário nos arquivos HTML (fora do bundle) 
+
 A recomendação é sempre utilizar arquivos de estilo separado do seu arquivo HTML.
 
-### Posicione as referências à arquivos javascript no final da página
-É preciso posicionar as referências à seus arquivos JavaScript na parte de baixo do arquivo html, com o objetivo de garantir que todos os elementos de página tenham sido carregados antes da execução de qualquer script.
-A imagem abaixo apresenta um exemplo de uso da tag <script> para fazer o carregamento do arquivo .js que está localizado na pasta Scripts:
+## Posicione as referências à arquivos javascript no final da página
 
-### Estruture o layout da página usando a tag Div
+É preciso posicionar as referências à seus arquivos JavaScript na parte de baixo do arquivo html, com o objetivo de garantir que todos os elementos de página tenham sido carregados antes da execução de qualquer script.
+
+## Estruture o layout da página usando a tag Div
+
 Utilize a tag <div> principalmente para definir os blocos principais do layout. Em uma página cuja estrutura prinicipal seja composta de cabeçalho, coluna esquerda, coluna de conteúdo, coluna direita e rodapé, utilize a tag div para especificar estes blocos principais de conteúdo.
 
-### Utilize letras minúsculas para nomes de tags
-O uso de letras maiúsculas não causa erros na renderização da página web, no entanto afeta a legibilidade do código. Por esta razão é recomendado o uso exclusivo de letras minúsculas na definição das tags.
+## Utilize letras minúsculas para nomes de tags
 
-### Adicione o atributo Alt para tags Image
+O uso de letras maiúsculas não causa erros na renderização da página web, no entanto afeta a legibilidade do código. Por esta razão é recomendado o uso exclusivo de letras minúsculas na definição das tags. Algumas IDEs convertem para minúsculas automaticamente.
+
+## Adicione o atributo Alt para tags Image
 
 A tag <img> é usada para fazer referência a uma imagem dentro de um conteúdo html. O atributo alt permite que seja especificado um texto descritivo da imagem. Este texto é importante para as seguintes situações:
 
@@ -56,18 +63,24 @@ Para imagens de composição da tela sem significado relevante, recomenda-se uti
 
     <img src="..." alt="" />
 
-### Utilize de maneira apropriada as tags de títulos (h1, h2, h3, etc)
+## Utilize de maneira apropriada as tags de títulos (h1, h2, h3, etc)
+
 Os títulos das páginas são usados na indexação de páginas em sites de pesquisa como o Google, Bing e Yahoo. Existem 6 níveis de títulos, começando com <h1>, que apresenta a formatação de maior destaque, até o <h6>, que apresenta a formatação de menor destaque.
 
-### Utilize a tag de lista sem ordenação (ul), para criar estruturas de navegação em menus
-Seguindo várias recomendações presentes neste artigo, o uso de tags <div> deve ser limitado aos elementos principais da estrutura da página web. Com base nestas orientações, é recomendado o uso do elemento <ul> para implementação de elementos de navegação do site ou aplicação web.
+## Utilize a tag de lista para criar estruturas de navegação em menus
 
-A imagem abaixo demonstra uma estrutura de navegação simples que utiliza esta abordagem:
+Seguindo várias recomendações presentes neste artigo, o uso de tags <div> deve ser limitado aos elementos principais da estrutura da página web. Com base nestas orientações, é recomendado o uso do elemento <ul> ou <ol> para implementação de elementos de navegação do site ou aplicação web.
 
-### Utilize CssReset para padronizar as formatações de tags entre diferentes web browsers
+O elemento <ol> é recomendado para os casos em que a ordenação dos itens for relevante. 
+
+## Utilize CssReset para padronizar as formatações de tags entre diferentes web browsers
+
 O “CSS reset” é um trecho de código de estilos que tem o objetivo de “limpar” todos as formatações pré-definidas, comuns a todos os browsers existentes. Esta estratégia ajuda a reduzir as diferenças visuais encontradas nos diferentes browsers disponíveis no mercado.
 É recomendado analisar diferentes modelos de CSS Reset com o objetivo de personalizar as especificações de acordo com as necessidades específicas do seu projeto. Observe também que alguns frameworks CSS (ex.: Bootstrap) possuem implementações próprias aplicadas com seu uso.
-A imagem abaixo apresenta um trecho de código CSS que realiza esta “limpeza” dos estilos pré-definidos:
+
+
+...
+
 
 13. Utilize o elemento adequado no posição correta
 O conhecimento sobre o uso correto e adequado dos elementos HTML é muito importante para garantir que a interface apresente o comportamento esperado durante o seu uso. Veja abaixo alguns exemplos de elementos HTML e suas funções:

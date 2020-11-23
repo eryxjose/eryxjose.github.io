@@ -5,20 +5,20 @@ title: Resumo sobre Entity Framework Code First
 date: 11/09/2019
 ---
 
-Visão geral das ações realizadas quando utilizando a abordagem Code First para definição do modelo de dados da aplicação.
+Utilizando a abordagem Code First para definição do modelo de dados da aplicação.
 
-# Criar entidades do modelo de dados ou domínio da aplicação
+# Entidades do modelo de dados ou domínio da aplicação
 
-* As entidades são definidas através de classes podem conter propriedades e métodos. 
-* Classes e propriedades podem ser decoradas com atributos para estender suas características e comportamentos.
+* As entidades são definidas em classes com propriedades e métodos. 
+* Utilize atributos para estender características e comportamentos de classes e propriedades.
 * Propriedades de navegação são utilizadas para representar entidades relacionadas.
 * O modificador virtual pode ser utilizado nas propriedades de navegação para possibilitar o carregamento posterior dos respectivos dados.
 
 # Configurar objeto de conexão com a base de dados utilizando DbContext
 
-	O objeto de conexão é utilizado para intermediar as operações de carregamento ou manipulação de dados na base.
+O objeto de conexão é utilizado para intermediar as operações de carregamento ou manipulação de dados na base.
 
-O objeto de conexão da aplicação é uma classe que herda de DbContext e contém um conjunto de propriedades DbSet que representam os dados de cada entidade da aplicação. Também pode conter métodos para sobrescrever e configurar relacionamentos entre as entidades.
+O objeto de conexão da aplicação é uma classe que herda de DbContext e contém um conjunto de propriedades DbSet que representam as entidades da aplicação. Também pode conter métodos para sobrescrever e configurar relacionamentos entre as entidades.
 
 	...
 	

@@ -5,8 +5,6 @@ title: Configuração para confirmação de email no ASP.NET Identity
 date: 10/07/2019
 ---
 
-
-
 A regra inicial para validação de confirmação do email inicialmente foi implementada através de configuração do middleware na classe startup.cs de maneira que as requisições para a aplicação são interceptadas e validadas antes que o endpoint seja executado. Neste cenário, a aplicação retornará um erro 400 de requisição inválida.
 
 	...
@@ -19,7 +17,7 @@ A regra inicial para validação de confirmação do email inicialmente foi impl
 	
 	...
 
-Posteriormente houve uma demanda para que seja mostrada uma mensagem de erro personalizada para o caso de email não confirmado e foi necessário implementar a validação no endpoint de acesso ao sistema (Account/Login). Segue o código completo para o método Login.
+Posteriormente houve uma demanda de mensagem de erro personalizada para o caso de email não confirmado e foi necessário implementar a validação no endpoint de acesso ao sistema (Account/Login). Segue o código completo para o método Login.
 
 	[HttpPost]
 	[AllowAnonymous]
