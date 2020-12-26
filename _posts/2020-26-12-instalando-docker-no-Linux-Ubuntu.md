@@ -72,7 +72,3 @@ Os links abaixo, explicam como executar o docker sem sudo e configurar para exec
 
 [Executar na inicialização](https://docs.docker.com/install/linux/linux-postinstall/#configure-docker-to-start-on-boot)
 
-...
-
-git config --global user.email "you@example.com"
-
