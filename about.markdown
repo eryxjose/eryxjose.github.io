@@ -9,8 +9,7 @@ permalink: /sobre/
     <h1>Perfil Profissional</h1>
     <div class="col-8">
         <p>
-            Desenvolvedor de software full-stack especializado em internet, com experiência profissional em 
-            diferentes segmentos de mercado e plataformas.
+            Desenvolvedor full stack, generalista auto motivado, com foco em qualidade e inovação
         </p>
         
         <p>

@@ -9,7 +9,7 @@ layout: home
     <div class="large-hero__text-content">
         <h1 class="large-hero__title">Eryx Guimarães</h1>
         <h2 class="large-hero__subtitle">Compartilhando conhecimento, pensamento e opinião.</h2>
-        <p class="large-hero__description">Desenvolvedor de software full-stack especializado em internet, com experiência profissional em diferentes segmentos de mercado e plataformas.</p>
+        <p class="large-hero__description">Desenvolvedor full stack, generalista auto motivado, com foco em qualidade e inovação.</p>
         <br />
         <p><a href="#contato" class="large-hero__button">Entre em Contato</a></p>
     </div>
