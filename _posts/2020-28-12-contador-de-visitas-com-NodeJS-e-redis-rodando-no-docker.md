@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Eryx
-title: Contador de Visitas com NodeJS e Redis rodando no Docker
+title: Contador de Visitas com NodeJS e Redis rodando no Docker Compose
 date: 28/12/2020
 ---
 
