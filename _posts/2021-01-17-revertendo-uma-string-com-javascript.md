@@ -96,9 +96,10 @@ Compare com a versão utilizando o "for".
 O JavaScript possui um método reverse() que implementa a funcionalidade para reverter a ordem dos elementos de um array. Desta forma, você pode usar o comando split() para obter um array a partir da string passada como parâmetro, utilizar o comando reverse no array gerado e então utilizar o comando join() para transformar o array invertido novamente em uma string.
 
     function reverse(str) {
-        const arr = str.split('');
-        arr.reverse();
-        return arr.join('');
+        return str
+            .split('')
+            .reverse()
+            .join('');
     }
 
 ## Resumo
