@@ -9,13 +9,13 @@ Este texto descreve o fluxo de publicação para uma aplicação Docker com inte
 
 As funcionalidades serão implementadas na branch "feature" e então será feito um merge request para a branch "master". O merge request iniciará um processo de testes que no caso de sucesso fará o merge com a branch master e então a publicação no AWS Elastic Beanstalk. Neste contexto, veremos que o Docker facilita algumas tarefas relacionadas ao fluxo de deploy.
 
-Utilizaremos uma aplicação ReactJS sem alterações no código da aplicação apenas para demonstrar o deploy e a integração contínua, foco deste post. 
+Usaremos uma aplicação ReactJS sem alterações no código da aplicação apenas para demonstrar o deploy e a integração contínua, foco deste post. 
 
 Crie a aplicação ReactJS.
 
     $ npx create-react-app frontend
 
-Uma aplicação ReactJS semelhante a outras aplicações desenvolvidas em ambiente NodejS, possui um arquivo package.json com scripts para executar, testar e publicar respectivamente uma aplicação.
+O arquivo package.json contém um sessão scripts onde são definidos comandos para iniciar, testar e fazer deploy (start, test, build respectivamente). Utilize npm run para executar cada comando (script) definido. Veja exemplos abaixo:
 
     $ npm run start
     - Inicia um servidor web usado no desenvolvimento.
@@ -41,7 +41,7 @@ Utilize o parâmetro -f com o comando docker build para especificar o nome do ar
 
 Remova a pasta node_modules na pasta do projeto React. O container Docker carregará os módulos node quando for executado.
 
-Execute o comando docker run com o parâmetro -p para especificar o mapeamento entre a porta local e a porta do container.
+Execute o comando docker run com o parâmetro -p para especificar o mapeamento entre a porta local e a porta no container.
 
     $ docker run -it -p 3000:3000 <id-container>
 
@@ -49,15 +49,15 @@ Vamos configurar Docker Volume para fazer com que as alterações no código da 
 
     $ docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app <id-container>
 
-O mapeamento de volume para os usuários do Windows Home utilizando Docker Toolbox precisa passar uma variável de ambiente com a correção diretamente no comando run.
+O mapeamento de volume para os usuários do Windows Home utilizando Docker Toolbox depende da variável de ambiente CHOKIDAR_USEPOLLING=true diretamente no comando run.
 
     -e CHOKIDAR_USEPOLLING=true
 
-Ou criar um arquivo .env na pasta raiz do projeto com a correção.
+Ou criar um arquivo .env na pasta raiz do projeto contendo a variável de ambiente.
 
     CHOKIDAR_USEPOLLING=true
 
-Veja exemplos para diferentes terminais abaixo e lembre de verificar de alterar os caminhos apropriadamente.
+Veja exemplos de comandos para diferentes terminais e altere os caminhos informados caso seja necessário.
 
     Docker Quickstart (recommended)
 
@@ -75,7 +75,7 @@ Execute a aplicação com o mapeamento de volume, acesse com o navegador e faça
 
     $ docker run -p 3000:3000 -v /app/node_modules -v $(pwd):/app <id-container>
 
-Crie um arquivo docker-compose.yme na pasta raiz do projeto com o código ilustrado a seguir. 
+Crie um arquivo docker-compose.yml na pasta raiz do projeto com o código abaixo. 
 
     version: '3'
     services:
@@ -89,7 +89,7 @@ Crie um arquivo docker-compose.yme na pasta raiz do projeto com o código ilustr
                 - /app/node_modules
                 - .:/app
 
-Utilize o comando docker run para executar os testes definidos para o projeto.
+Utilize o comando docker run para executar o teste padrão criado com a aplicação ReactJS.
 
     $ docker run -it <id-imagem> npm run test
 
@@ -97,7 +97,7 @@ Utilize docker exec para rodar os testes via terminal para que as alterações n
 
     $ docker exec -it <id-container> npm run test
 
-Uma maneira alternativa ao uso do docker exec em um segundo terminal para rodar os testes sem que for feita qualquer alteração na aplicação, aproveitando o mapeamento de volume previamente definido, é criar um segundo serviço no docker-compose.yml conforme exemplo abaixo.
+Uma maneira alternativa ao uso do docker exec é criar um segundo serviço (tests) no docker-compose.yml conforme exemplo abaixo.
 
     version: '3'
     services:
@@ -125,7 +125,7 @@ Execute o docker-compose up com o parâmetro --build, faça alterações nos tes
 
 Observe que utilizando o Docker Compose não será possível obter acesso aos comandos do prompt para executar novamente, filtrar por nome de arquivo, ou pelo nome do teste. Os testes serão executados na inicialização e quando forem feitas alterações somente. Para obter a interação com o prompt de comando, utilize a primeira opção discutida.
 
-Crie o arquivo Dockerfile que será usado para gerar o deploy de produção, na pasta raiz do projeto. Utilize o código a seguir para executar um build em múltiplos passos. Cada passo é iniciado pelo comando FROM e pode ser referenciada utilizando --from=<índice-passo> conforme exemplo a seguir. Esta estratégia possibilita criar e utilizar recursos de múltiplas imagens em conjunto. Em nosso exemplo, node:alpine e nginx. O comando copy na última linha do exemplo, obtém o /app/build resultado do primeiro passo e copia para a pasta padrão utilizada pelo nginx.
+Crie o arquivo Dockerfile que será usado para gerar o deploy de produção na pasta raiz do projeto e copie o código a seguir para executar o build em múltiplos passos. Cada passo é iniciado pelo comando FROM e pode ser referenciada utilizando --from=<índice-passo> conforme exemplo a seguir. Esta estratégia possibilita criar e utilizar recursos de múltiplas imagens em conjunto. Em nosso exemplo, node:alpine e nginx. O comando copy na última linha do exemplo, obtém o /app/build resultado do primeiro passo e copia para a pasta padrão utilizada pelo nginx.
 
     FROM node:alpine
     WORKDIR '/app'
@@ -137,7 +137,7 @@ Crie o arquivo Dockerfile que será usado para gerar o deploy de produção, na 
     FROM nginx
     COPY --from=0 /app/build /usr/share/nginx/html
 
-Execute a aplicação com docker run.
+Execute a aplicação com docker run para testar.
 
     $ docker run -p 8080:80 <id-imagem>
 
@@ -153,7 +153,7 @@ Faça commit.
 
     $ git commit -m "Primeiro commit"
 
-Utilize o git remote para víncular o repositório criado no GitHub com a url copiada anteriormente.
+Utilize o git remote para víncular o repositório criado no GitHub com a url do repositório copiada.
 
     $ git remote add origin <url-respositorio>
 
@@ -165,7 +165,7 @@ Pode ser necessário informar seu usuário e senha do GitHub.
 
 Em seguida, veremos como configurar o Travis CI para receber notificações sobre alterações em nosso repositório GitHub e realizar ações de teste e deploy.
 
-Acesse https://travis-ci.org/ e faça Sign In. Sua lista de repositórios aparece no painel lateral esquerdo, onde você encontra um botão para adicionar novos repositórios. Ao clicar no botão adicionar, śerá exibida sua lista de repositórios no GitHub para você selecionar. 
+Acesse https://travis-ci.org/ e faça Sign In. Então clique no botão adicionar e selecione um repositório. 
 
 Crie o arquivo .travis.yml na pasta raiz do projeto e copie o código abaixo.
 
@@ -182,18 +182,18 @@ Crie o arquivo .travis.yml na pasta raiz do projeto e copie o código abaixo.
 
 [Veja mais sobre variáveis de ambiente](https://docs.docker.com/engine/reference/run/#env-environment-variables)
 
-Adicione as alterações ao controle de versão.
+Adicione todas as alterações ao controle de versão.
 
     $ git add .
 
 Faça commit e push das alterações.
 
-    $ git commit -m "Adicionado arquivo .travis.yml
+    $ git commit -m "Adicionado arquivo .travis.yml"
     $ git push origin master
 
-A página do seu repositório em travis-ci.org mostrará o resultado dos testes. Também é exibido um log de execução e algumas ações possíveis, como por exemplo, visualizar o commit, comparar as alterações, acessar a branch master no github, informações do tempo gasto, botão para reiniciar o build, entre outros. E você também pode receber um email com o resultado.
+A página do seu repositório em travis-ci.org mostrará o resultado dos testes. Também é exibido um log de execução e algumas ações possíveis, como por exemplo, visualizar o commit, comparar as alterações, acessar a branch master no github, informações do tempo gasto, botão para reiniciar o build, entre outros.
 
-Em seguida, acesse seu Console de Gerenciamento AWS e pesquise e acesse Elastic Beanstalk. Clique no botão "Create Application" para acessar o formulário "Criar um aplicativo Web". Entre com um nome, por exemplo, docker-react. Selecione a plataforma Node.js, e no campo "Ramificações da plataforma" selecione "Node.js running on 64bit Amazon Linux" para fazer com que o arquivo Dockerfile seja usado ao invés do docker-compose.yml. Clique no botão "Criar Aplicativo". Depois de concluído, acesse o link Aplicativos para visualizar informações, incluindo link para exibir sua aplicação no navegador.
+Em seguida, acesse seu Console de Gerenciamento AWS e pesquise e acesse Elastic Beanstalk. Clique no botão "Create Application" para acessar o formulário com o título "Criar um aplicativo Web". Entre com um nome, por exemplo, docker-react. Selecione a plataforma Node.js, e no campo "Ramificações da plataforma" selecione "Node.js running on 64bit Amazon Linux" para fazer com que o arquivo Dockerfile seja usado ao invés do docker-compose.yml. Clique no botão "Criar Aplicativo". Depois de concluído, acesse o link Aplicativos para visualizar informações, incluindo link para exibir sua aplicação no navegador.
 
 Inclua a seção deploy no arquivo .travis.yml conforme exemplo. Você pode visualizar a região (region) onde está hospedada sua aplicação no url gerado no passo anterior pelo serviço Elastic Beanstalk. No mesmo local, você também visualiza a coluna Nome do Ambiente cujo valor deve ser informado na propriedade env. Você encontrará o nome do bucket criado para sua aplicação na lista de Buckets disponível na tela de gerenciamento do serviço S3. Pesquise por S3 e em seguida localize o nome que contém a região de sua aplicação. Utilize o nome da aplicação na propriedade bucket_path. A propriedade branch define quando o deploy será feito.
 
@@ -201,7 +201,7 @@ Inclua a seção deploy no arquivo .travis.yml conforme exemplo. Você pode visu
         provider: elasticbeanstalk
         region: "us-west-2"
         app: "docker-react"
-        env: "DockerReact-env"
+        env: "Docker-env-1"
         bucket_name: "elasticbeanstalk-us-west-2-670490603314"
         bucket_path: "docker-react"
         on:
