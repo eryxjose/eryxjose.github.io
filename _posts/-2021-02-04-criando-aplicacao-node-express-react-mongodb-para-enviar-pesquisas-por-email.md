@@ -306,5 +306,133 @@ MongoDB não utiliza Schemas e permite que os registros tenham campos diferentes
 
 Mongoose utiliza 'Model Class' para representar as coleções de uma base MongoDB e contém os métodos para realizar as operações de atualização na base de dados. Mongoose também fornece 'Model Instance' que tem acesso a cada registro da coleção.
 
-## Configurando banco de dados MongoDB
+Instale a lib mongoose com o parâmetro '--save' como dependência para execução.
 
+    $ npm install --save mongoose
+
+Modifique o código da 'index.js' conforme exemplo a seguir. Observe as referências para lib mongoose e para o arquivo './config/keys.js' contendo as informações sensitivas do app. E em seguida, o comando 'mongoose.connect' recebendo o url de conexão com a base mongodb como parâmetro.
+
+    const express = require('express');
+    const mongoose = require('mongoose');
+    const keys = require('./config/keys');
+    require('./services/passport'); // referência sem retorno para o carregamento das configurações
+    mongoose.connect(keys.mongoURI);
+    const app = express();
+    require('./routes/authRoutes')(app);
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT);
+
+
+Crie uma pasta 'models' na rais do projeto, e dentro dela, o arquivo 'User.js'. Este arquivo será utilizado para criar uma classe de modelo mongoose para representar uma coleção mongodb. As propriedades e respectivos tipos de dados das coleções são definidas utilizando a propriedade 'Schema'. O comando 'mongoose.model' registra o Schema como uma classe de modelo de dados que representa a coleção (MongoDB Collection) Users. 
+
+    const mongoose = require('mongoose');
+    const { Schema } = mongoose;
+
+    const userSchema = new Schema({
+        googleId: String
+    });
+
+    mongoose.model('users', userSchema);
+
+Em seguida, adicione o 'require' para 'User' em index.js para que seja carregado junto com a inicialização da aplicação mas antes de carregar o módulo './services/passport'.
+
+    ...
+    require('./models/User');
+    require('./services/passport');
+    ...
+
+Abra o arquivo './services/passport.js', adicione uma referência para lib 'mongoose' e em seguida carregue o model 'users' na variável 'User'. Lembre-se que atribuímos o nome 'users' para 'userSchema' em 'User.js'. 'User' no código ilustrado a seguir, representa uma 'Model Class' utilizada para interagir com a coleção 'users' na base de dados MongoDB.
+
+    ...
+    const mongoose = require('mongoose');
+    const User = mongoose.model('users');
+    ...
+
+Modifique o método 'passport.use' do mesmo arquivo 'passport.js' para criar uma instância de 'User' com o id obtido do Google Auth. O método '.save()' grava o registro na base. A Collection 'users' será criada automaticamente caso ainda não exista. No código abaixo, verificamos a existência de um usuário utilizando 'User.findOne' passando um objeto com o 'profile.id' do usuário autenticado pelo Google Auth. No caso de já existir um usuário com o mesmo 'googleId', indicamos o final da requisição utilizando o método 'done(null, existingUser)'. Caso seja um novo usuário, e a operação 'save()' não retorne erro, indicamos o sucesso chamando o método 'done(null, user)'. Caso a gravação tenha sido bem sucedida, o callback 'user' contém os dados do novo usuário criado.
+
+    const passport = require('passport');
+    const GoogleStrategy = require('passport-google-oauth20').Strategy;
+    const mongoose = require('mongoose');
+    const keys = require('../config/keys');
+    const User = mongoose.model('users');
+
+    passport.use(new GoogleStrategy(
+        {
+            clientID: keys.googleClientID,
+            clientSecret: keys.googleClientSecret,
+            callbackURL: keys.callbackURL
+        }, 
+        (accessToken, refreshToken, profile, done) => {
+            User.findOne({ googleId: profile.id }).then( existingUser => {
+                if (existingUser) {
+                    done(null, existingUser);
+                } else {
+                    new User({ googleId: profile.id })
+                        .save()
+                        .then(user => done(null, user));
+                }
+            });
+        }
+    ));
+
+O próximo passo é implementar a serialização/desserialização do objeto 'User' e configurar 'express' e 'passport' para utilizar Cookies. A serialização é feita com o método 'passport.serializeUser'. Antes de 'passport.use', inclua o código a seguir.
+
+    passport.serializeUser((user, done) => {
+        done(null, user.id);
+    })
+
+No exemplo acima, 'user' é o parâmetro de callback que retorna o registro inserido e 'user.id' contém o respectivo identificador único na base MongoDB.
+
+Em seguida, adicione 'passport.deserializeUser' e utilize o 'id' para encontrar o registro na coleção 'User'. 
+
+    passport.deserializeUser((id, done) => {
+        User.findById(id).then(user => { 
+            done(null, user);
+        });
+    });
+
+'done' é um padrão JavaScript para chamadas assíncronas utilizado pela lib 'passport' para informar a conclusão de requisições. Este padrão adota uma abordagem 'error first' onde o primeiro parâmetro é usado para exceções e os demais parâmetros são objetos de dados.
+
+Instale a lib 'cookie-session' para habilitar o uso de cookies para autenticação do usuário em nossa aplicação 'express'.
+
+    $ npm install --save cookie-session
+
+Para configurar o uso de Cookies, adicione referências para as libs 'cookie-session' e 'passport' no arquivo 'index.js' conforme exemplo a seguir.
+
+    ...
+    const cookieSession = require('cookie-session');
+    const passport = require('passport');
+    ...
+
+Em seguida, 'app.use' recebe 'cookieSession' com um objeto de configuração contendo 'maxAge' (expiração dos Cookies) e 'keys' (utilizado na encriptação).
+
+    ...
+    app.use(cookieSession({
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        keys: [keys.cookieKey]
+    }));
+    ...
+
+Também é necessário fazer configurações para a lib 'passport'.
+
+    ...
+    app.use(passport.initialize());
+    app.use(passport.session());
+    ...
+
+Isso conclui todas as configurações para o fluxo de autenticação utilizando as libs 'passport' e 'CookieSession' em uma aplicação 'express'. De maneira geral quando uma requisição for feita para aplicação, 'CookieSession' verifica a existência de Cookies e decripta as informações caso existam, 'passport' obtém o id do usuário dos dados extraídos, a função 'deserializeUser' então instancia o objeto User e esta instância é então vinculada ao objeto request como 'req.user'.
+
+Para testar a autenticação vamos criar uma nova rota que retorne o objeto 'req.user'. No arquivo 'authRoutes.js' inclua a rota abaixo.
+
+    app.get('/api/current_user', (req, res) => {
+        res.send(req.user);
+    });
+
+Crie uma nova rota em 'authRoutes.js' para ação de logout. Passport automaticamente adiciona uma função 'logout()' no objeto 'req' que pode ser executada conforme exemplo a seguir.
+
+    app.get('/api/logout', (req, res) => {
+        req.logout();
+        res.send(req.user); // req.user enviado para comprovar o signout
+    });
+
+Acesse o url 'http://localhost:5000/api/logout' para confirmar que nada será exibido porque 'req.user' está vazio.

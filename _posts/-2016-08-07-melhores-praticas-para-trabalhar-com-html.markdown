@@ -76,6 +76,7 @@ O elemento <ol> é recomendado para os casos em que a ordenação dos itens for 
 ## Utilize CssReset para padronizar as formatações de tags entre diferentes web browsers
 
 O “CSS reset” é um trecho de código de estilos que tem o objetivo de “limpar” todos as formatações pré-definidas, comuns a todos os browsers existentes. Esta estratégia ajuda a reduzir as diferenças visuais encontradas nos diferentes browsers disponíveis no mercado.
+
 É recomendado analisar diferentes modelos de CSS Reset com o objetivo de personalizar as especificações de acordo com as necessidades específicas do seu projeto. Observe também que alguns frameworks CSS (ex.: Bootstrap) possuem implementações próprias aplicadas com seu uso.
 
 
