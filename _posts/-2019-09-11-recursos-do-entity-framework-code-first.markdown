@@ -5,9 +5,11 @@ title: Resumo sobre Entity Framework Code First
 date: 11/09/2019
 ---
 
-Utilizando a abordagem Code First para definição do modelo de dados da aplicação.
+Utilizando a abordagem Code First para definir e gerenciar o modelo de dados da aplicação.
 
 # Entidades do modelo de dados ou domínio da aplicação
+
+Vejamos alguns conceitos fundamentais.
 
 * As entidades são definidas em classes com propriedades e métodos. 
 * Utilize atributos para estender características e comportamentos de classes e propriedades.
@@ -28,10 +30,7 @@ O objeto de conexão da aplicação é uma classe que herda de DbContext e cont�
 		public DbSet<Entidade1> Entidade1Collection { get; set; }
 		public DbSet<Entidade1> Entidade1Collection { get; set; }
 		
-		/*
-		Ao definir a propriedade name da connection string com um valor diferente do nome do dado ao objeto DbContext (ex.: AppContext), será
-		necessário utilizar : base("name=DefaultConnection") para informar o nome da conexão a ser utilizada.
-		*/
+Utilize 'base("name=DefaultConnection")' no método construtor para definir o nome utilizado para referenciar o objeto de contexto.
 		
 		public AppContext() 
 			: base("name=DefaultConnection")

@@ -39,7 +39,7 @@ A recomendação é sempre utilizar arquivos de estilo separado do seu arquivo 
 
 ## Posicione as referências à arquivos javascript no final da página
 
-É preciso posicionar as referências à seus arquivos JavaScript na parte de baixo do arquivo html, com o objetivo de garantir que todos os elementos de página tenham sido carregados antes da execução de qualquer script.
+É recomendado posicionar as referências aos arquivos JavaScript na parte de baixo do documento html, com o objetivo de garantir que todos os elementos de página tenham sido carregados antes da execução de qualquer script.
 
 ## Estruture o layout da página usando a tag Div
 
@@ -83,21 +83,16 @@ O “CSS reset” é um trecho de código de estilos que tem o objetivo de “li
 ...
 
 
-13. Utilize o elemento adequado no posição correta
+## Utilize o elemento adequado no posição correta
 O conhecimento sobre o uso correto e adequado dos elementos HTML é muito importante para garantir que a interface apresente o comportamento esperado durante o seu uso. Veja abaixo alguns exemplos de elementos HTML e suas funções:
-    <p>
-Este elemento é usado para definir um parágrafo em um documento HTML.
-    <body>
-Este elemento é usado para definir o corpo do documento HTML.
-    <ul>
-Este elemento apresenta uma lista sem numeração. Usado para momentos em que a ordenação não importa.
-    <ol>
-Este elemento apresenta uma lista numerada. A lista numerada é usada quando a ordem dos itens é relevante.
-    <em>
-Este elemento deve ser usado para dar “enfase” a trechos do documento HTML. Para obter enfatizar ainda mais o trecho, pode-se utilizar também a tag <strong> ou <b>.
-    <br>
-Este elemento é usado para criar uma quebra de linha em textos. No entanto, é recomendado o uso das propriedades Margin e Padding para aumetar a separação entre parágrafos (<p>), ao invés de <br>.
-14. Avalie o código-fonte de outros web sites para observar diferentes abordagens
+    <p> - Este elemento é usado para definir um parágrafo em um documento HTML.
+    <body> - Este elemento é usado para definir o corpo do documento HTML.
+    <ul> - Este elemento apresenta uma lista sem numeração. Usado para momentos em que a ordenação não importa.
+    <ol> - Este elemento apresenta uma lista numerada. A lista numerada é usada quando a ordem dos itens é relevante.
+    <em> - Este elemento deve ser usado para dar “enfase” a trechos do documento HTML. Para obter enfatizar ainda mais o trecho, pode-se utilizar também a tag <strong> ou <b>.
+    <br> - Este elemento é usado para criar uma quebra de linha em textos. No entanto, é recomendado o uso das propriedades Margin e Padding para aumetar a separação entre parágrafos (<p>), ao invés de <br>.
+
+14. Avalie o código-fonte de outros web sites para observar diferentes abordagens
 Mesmo depois de estar dominando a linguagem HTML, ainda assim é importante observar o código fonte de diferentes web sites e aplicações, com o objetivo de avaliar outras abordagens para situações semelhantes.
 15. Valide o código HTML
 É importante periódicamente fazer validações no código HTML, com o objetivo de verificar a adesão do código aos padrões existentes. No entanto, não é pssível afirmar que um código que esteja totalmente validado, é um excelente código. Da mesma forma, não é possível afirmar que um código que não está totalmente validado, seja uma estrutura HTML ruim.
@@ -217,7 +212,7 @@ Utilize o recurso de comentários condicionais, para aplicar diferentes estilos 
     media=”all”>
     <![endif]–>
 
-52.Escreva códigos com formato consistente
+52. Escreva códigos com formato consistente
 Escreva códigos indentados que facilitem a visualização e compreenção do código html.
 Exemplo indentado:
     <html>
