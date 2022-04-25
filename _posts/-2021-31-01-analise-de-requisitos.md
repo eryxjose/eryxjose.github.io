@@ -5,7 +5,7 @@ title: Análise de Requisitos
 date: 31/01/2021
 ---
 
-A análise de requisitos produz uma relação de todas as funcionalidades esperadas para o sistema. Especificações definem detalhes técnicos relacionados a cada requisito.
+A análise de requisitos produz uma relação de todas as funcionalidades esperadas para o sistema, as expectativas em termos de experiência de usuário, as demandas em relação ao ambiente operacional e meio de interação, entre outros.
 
 Requisitos podem ser classificados em funcionais e não-funcionais. E os requisitos não-funcionais podem ainda ser classificados em: Requisitos de Produtos, Requisitos Organizacionais e Requisitos Externos.
 

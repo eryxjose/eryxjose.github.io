@@ -24,7 +24,6 @@ description: >- # this means to ignore newlines until "baseurl:"
   "Desenvolvedor full stack, generalista auto motivado, com foco em qualidade e inovação."
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://www.eryxguimaraes.com.br" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: eryxguimaraes
 github_username:  eryxjose
 linkedin_username: eryxguimaraes
 facebook_username: eryx.guimaraes

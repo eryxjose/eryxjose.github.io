@@ -17,14 +17,17 @@ Crie a aplicação ReactJS.
 
 O arquivo package.json contém um sessão scripts onde são definidos comandos para iniciar, testar e fazer deploy (start, test, build respectivamente). Utilize npm run para executar cada comando (script) definido. Veja exemplos abaixo:
 
+Inicie um servidor web.
+
     $ npm run start
-    - Inicia um servidor web usado no desenvolvimento.
+
+Execute os testes associados com o projeto.
 
     $ npm run test
-    - Executa os testes associados com o projeto.
+
+Cria uma versão da aplicação para produção.
 
     $ npm run build 
-    - Cria uma versão da aplicação para produção.
 
 Crie o arquivo Dockerfile.dev na pasta raiz do projeto e copie o código abaixo.
 

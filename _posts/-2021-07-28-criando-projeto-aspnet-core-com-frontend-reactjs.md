@@ -5,44 +5,68 @@ title: Criando um projeto ASP.NET Core com frontend ReactJS
 date: 28/07/2021
 ---
 
-Veja informações de versão do SDK .net instalado.
+Este texto descreve a construção de uma aplicação para acompanhar e participar de atividades dos usuários registrados e identificados.
+
+O sistema será construído utilizando as tecnologias .net e react, com abordagem ágil iterativa e incremental. 
+
+Dois projetos serão desenvolvidos em paralelo: 1) Arquitetura disponibilizada na forma de WebAPI, com abordagem 'Clean Architecture' caracterizada por uma série de princípios de construção (design e componentes), e 2) outro projeto que faz uso da referida arquitetura para construir as funcionalidades específicas do domínio da aplicação.
+
+...
+
+Por exemplo, para construir a tela para exibir a lista de registros de atividades, teremos inicialmente as seguintes 'user stories':
+
+* No papel de usuário registrado, quero visualizar uma lista com todas as atividades com data de realização para o dia atual e posteriores para saber mais sobre as opções disponíveis.
+* No papel de usuário registrado, quero poder filtrar por data, eventos que o usuário participará e eventos que o usuário criou.
+* No papel de usuário registrado, quero que os registros sejam carregados gradativamente a medida que eu role na página para evitar o uso desnecessário de transmissão de dados.
+* No papel de usuário registrado, quero acompanhar todas as atualizações referentes a atividades que me interessem para me manter atualizado.
+  * No papel de usuário registrado, quero poder mudar a situação para não acompanhar um evento específico que eu esteja acompanhando caso as notificações estejam me incomodando.
+* No papel de usuário registrado, quero participar de atividades criadas por outros usuários.
+* No papel de usuário registrado, quero criar atividades para que outros usuários possam participar.
+
+
+com recursos para incluir a inscrição para participar de eventos, criar atividades/eventos para que outros participem, conversar por chat com participantes do evento.
+
+A aplicação será desenvolvida utilizando uma abordagem incremental e iterativa, em que novas funcionalidades e refatoramentos serão implementados quando necessário. 
+
+# Tecnologias
+
+* .NET 5.0 - Baixe o .net 5 em 'https://dotnet.microsoft.com/download'
+* React 17 - Frontend client
+* Mobx - State Management System
+
+# Informações de ajuda e sobre o sistema
+
+Versão do SDK .net instalado
 
     dotnet --info
 
-Veja informações de ajuda sobre os comandos mais usados.
+Comandos mais usados
 
     dotnet -h
 
-Veja mais detalhes sobre um comando específico, no exemplo o comando 'new'.
+Mais detalhes sobre um comando específico
 
     dotnet new -h
 
-Crie uma pasta para o projeto
+# Configurações de solução e projetos
+
+Crie uma pasta para o projeto.
 
     mkdir Personactivities
-
-Alterne para pasta
-
     cd Personactivities
 
-Crie o arquivo da solução. Será criado um arquivo .sln com o mesmo nome da pasta.
+Crie o arquivo da solução.
 
     dotnet new sln 
 
-Crie o projeto webapi com o nome 'API'. O comando cria uma pasta para os arquivos do projeto.
+Crie o projeto webapi com o nome 'API'.
 
     dotnet new webapi -n API
 
-Crie o projeto do tipo 'classlib' para 'Application'.
+Crie os projetos 'Application, Domain, e Persistence' do tipo 'classlib'.
 
     dotnet new classlib -n Application
-
-Crie outro projeto 'classlib' para o 'Domain'.
-
     dotnet new classlib -n Domain
-
-Crie outro projeto do mesmo tipo para 'Persistence'.
-
     dotnet new classlib -n Persistence
 
 Utilize o comando 'dotnet sln' para adicionar os projetos criados a solution. O comando procura automaticamente na pasta pelo arquivo '.csproj' e vincula com a solução.
@@ -52,11 +76,11 @@ Utilize o comando 'dotnet sln' para adicionar os projetos criados a solution. O 
     dotnet sln add Persistence
     dotnet sln add Domain
 
-Veja os projetos adicionados a solution.
+Você pode verificar os projetos da solução com o comando abaixo.
 
     dotnet sln list
 
-Em seguida é necessário estabelecer a relação de dependência entre os projetos.
+# Dependência entre os projetos
 
 Alterne para pasta do projeto API e entre com o comando 'dotnet add reference'.
 
@@ -71,6 +95,8 @@ Alterne para pasta 'Persistence' e relacione com o projeto 'Domain'
 
     dotnet add reference ../Domain
 
+# Configurações para o vscode
+
 Abra o vscode na pasta do projeto e verifique se uma pasta .vscode foi criada no painel de pastas e arquivos. Caso não veja a referida pasta, acesse a paleta de comando (F1) e entre com o comando 'Generate Assets for Build and Debug'.
 
 Abra o menu File > Preferences > Settings e digite 'exclude' na paleta de comando. Na lista 'Files: Exclude' inclua os tipos 'bin' e 'obj' para que estas pastas não sejam mostradas no vscode.
@@ -78,13 +104,19 @@ Abra o menu File > Preferences > Settings e digite 'exclude' na paleta de comand
     **/bin
     **/obj
 
-No projeto 'API' expanda a pasta 'Properties' e abra o arquivo 'launchSettings.json'. Altere a propriedade "LaunchBrowser" para true e remove o url 'https://localhost:5001' da propriedade "applicationUrl".
+# Configurações de execução
 
-Execute a aplicação utilizando o comando 'dotnet run' ou 'dotnet watch run' para atualizar a aplicação automaticamente ao fazer alterações.
+No projeto 'API' expanda a pasta 'Properties' e abra o arquivo 'launchSettings.json'. Altere a propriedade "LaunchBrowser" para 'false' e remove o url 'https://localhost:5001' da propriedade "applicationUrl".
+
+Execute a aplicação utilizando o comando 'dotnet run' ou 'dotnet watch run' para atualizar a aplicação automaticamente ao fazer alterações. Ainda não há nenhum endpoint respondendo pelo url raiz do site e portanto uma página '404' será mostrada ao acessar 'http://localhost:5000'.
+
+As configurações do projeto 'webapi' no .NET 5 habilitam o Swagger por padrão. Acesse 'http://localhost:5000/swagger' para visualizar a documentação da API.
 
 No arquivo 'appsettings.Development.json' altere a chave "Microsoft" para 'Information' para exibir mais informações no console.
 
     "Microsoft": "Information",
+
+# Domínio e persistência de dados
 
 Crie a classe 'Activity.cs' no projeto Domain.
 
@@ -102,6 +134,8 @@ Crie a classe 'Activity.cs' no projeto Domain.
             public string Venue { get; set; }
         }
     }
+
+Instale a extensão 'NuGet Gallery' no VSCode e utilize a paleta de comando (F1) para abrir a interface de gerenciamento de pacotes NuGet.
 
 Adicione o pacote NuGet 'Microsoft.EntityFrameworkCore.Sqlite.Core'. Abra a paleta de comando (F1), digite 'NuGet' e selecione 'NuGet Gallery'. Pesquise pelo pacote indicado e selecione o projeto 'Persistence' para instalação. Então clique no botão 'Install'.
 
@@ -121,7 +155,7 @@ Crie a classe 'DataContext.cs' no projeto 'Persistence'.
         }
     }
 
-Navegue até a classe 'Startup.cs' para configurar o uso do 'DataContext' criado. Você pode navegar utilizando a tecla de atalho 'Ctrl + P' e digitando o nome do arquivo.
+Abra o arquivo 'Startup.cs' para configurar o uso do 'DataContext' criado. Você pode navegar utilizando a tecla de atalho 'Ctrl + P' e digitando o nome do arquivo.
 
 Personalize o vscode para utilizar o prefixo '_' em métodos construtores e desabilite o uso de 'this'. Selecione o menu File > Preferences > Settings e busque por 'private' e adicione o caracter '_' na caixa 'Prefix for generated private member declarations'. Em seguida pesquisa por 'this' e localize 'C# Extensions' na lista e desmarque a caixa 'Use this for Ctor Assignments'. Depois de mudar estas configurações, clique com o direito sobre o parâmetro do método construtor e escolha a opção adequada. O código gerado ficará como exemplo a seguir.
 
@@ -145,9 +179,11 @@ E defina a connectionstring no arquivo 'appSettings.Development.json'
     ...
     ,
     "ConnectionStrings": {
-        "DefaultConnection": "Data sourcee=personactivities.db"
+        "DefaultConnection": "Data source=personactivities.db"
     }
     ...
+
+# Migrations
 
 Vamos utilizar Migrations para gerar a base de dados. Para isso, exiba o console e verifique se a ferramenta 'dotnet-ef' está instalada.
 
@@ -163,7 +199,7 @@ Copie o comando de instalação, semelhante ao exemplo abaixo.
 
 Para atualizar, no caso de já estar instalado, substitua o comando 'install' por 'update'.
 
-Utilize o comando abaixo para obter documentação de ajuda com os comandos disponíveis.
+Exiba a documentação de ajuda com os comandos disponíveis.
 
     dotnet ef -h
 
@@ -175,13 +211,24 @@ Se a mensagem de erro abaixo for exibida, instale o pacote indicado e tente nova
 
     Your startup project 'API' doesn't reference Microsoft.EntityFrameworkCore.Design. This package is required for the Entity Framework Core Tools to work. Ensure your startup project is correct, install the package, and try again.
 
-Verifique que a pasta 'Migrations' foi criada. 
+Verifique que a pasta 'Migrations' foi criada no projeto 'Persistence'.
 
-A base de dados pode ser criada ou atualizada com o comando abaixo.
+A base de dados pode ser criada ou atualizada com o comando 'dotnet ef database update'.
 
-    dotnet ef database update
+    dotnet ef database update -s API -p Persistence
 
-De maneira alternativa, você também pode usar a classe Program para executar a Migration. Modifique a classe Program conforme exemplo a seguir.
+Para excluir uma base existente quando quiser a aplicação com os dados iniciais, utilize o comando 'dotnet ef database drop' conforme exemplo a seguir. O parâmetro '-s' indica o projeto de inicialização e o parâmetro '-p' para o projeto onde a pasta 'Migrations' será criada.
+
+    dotnet ef database drop -s API -p Persistence
+
+Instale os pacotes NuGet para SQLite no projeto de persistência.
+
+    Microsoft.Data.Sqlite.Core by Microsoft
+    Microsoft.EntityFrameworkCore.Sqlite by Microsoft
+    Microsoft.Data.Sqlite by Microsoft
+    Microsoft.EntityFrameworkCore.Sqlite.Core by Microsoft
+
+De maneira alternativa, você também pode usar a classe Program para executar a Migration sempre que a aplicação for executada. Modifique a classe Program conforme exemplo a seguir.
 
     public static void Main(string[] args)
     {
@@ -201,13 +248,6 @@ De maneira alternativa, você também pode usar a classe Program para executar a
 
         host.Run();
     }
-
-É necessário instalar os pacotes NuGet para SQLite no projeto de persistência.
-
-    Microsoft.Data.Sqlite.Core by Microsoft
-    Microsoft.EntityFrameworkCore.Sqlite by Microsoft
-    Microsoft.Data.Sqlite by Microsoft
-    Microsoft.EntityFrameworkCore.Sqlite.Core by Microsoft
 
 Abra a paleta de comando do vscode (F1), localize e execute o comando 'SQLite Open Database' para exibir uma nova tab no painel lateral com o título 'SQLITE EXPLORER'.
 
@@ -252,6 +292,8 @@ Altere a linha do comando 'Migrate()' para utilizar a versão 'async'.
 E altere também a linha que executa o servidor 'host.Run()' pela versão assíncrona.
 
     await host.RunAsync();
+
+# Projeto API
 
 No projeto 'API' crie uma classe 'BaseApiController' com o seguinte código.
 
@@ -302,11 +344,15 @@ Crie um novo controller com o nome 'ActivitiesController' com o código abaixo.
 
 Utilize o Postman para fazer uma requisição para o url 'http://localhost:5000/api/activities'.
 
+# Repositório
+
 Crie um repositório github para o projeto. Utilize o comando 'git init' na pasta raiz do projeto para inicializar o novo repositório.
 
 Execute o seguinte comando 'dotnet new gitignore' para criar o arquivo '.gitignore' utilizado para definir a lista de arquivos que não estarão inclusos no controle de versão. Você pode visualizar a relação de comandos disponíveis com o comando 'dotnet new -l'. 
 
     dotnet new gitignore
+
+# Projeto frontend ReactJS 
 
 Vamos criar um projeto ReactJS que irá consumir os dados da API para construir a interface de usuário da aplicação, utilizando TypeScript e forçando o uso do NPM como gerenciador de pacotes.
 
@@ -382,6 +428,9 @@ Altere o método 'return' em 'App.tsx'.
         </div>
     );
     ...
+
+
+
 
 Instale o pacote NuGet 'MediatR.Extensions.Microsoft.DependencyInjection by Jimmy Bogard' no projeto 'Application'.
 
@@ -606,7 +655,7 @@ Configure o 'AutoMapper' no middleware da aplicação incluindo a linha abaixo n
 
     services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
-Utilize o AutoMapper nas classes do projeto 'Application.Activities' para mapear as propriedades de Activity enviadas com o 'Command request', para as propriedades da base de dados obtidas do 'Context'.
+Utilize o AutoMapper nas classes do projeto 'Application.Activities' para mapear as propriedades de Activity enviadas com o 'Command request', para as propriedades do domínio obtidas com 'Context'.
 
     public class Handler : IRequestHandler<Command>
     {
@@ -692,7 +741,7 @@ Remova a tipagem 'any' da linha onde é feito o map das atividades '.map((activi
 
     {activities.map((activity) => (
 
-Defina o tipo 'Activity' para o método 'axios.get'.
+Defina o tipo 'Activity[]' para o método 'axios.get'.
 
     useEffect(() => {
         axios.get<Activity[]>('http://localhost:5000/api/activities').then(response => {
@@ -750,6 +799,8 @@ Ainda no arquivo 'App.tsx', coloque a elemento '<List>' dentro de um elemento '<
           ))}
         </List>
     </Container>
+
+O elemento '<Container>' cria um espaçamento do padding para seu conteúdo.
 
 Substitua a tag '<div>' raiz, primeira do 'return', por '<Fragment>' do react para que este elemento que é de uso específico da biblioteca, seja removido na geração da estrutura html.
 
@@ -838,6 +889,8 @@ Crie o componente 'ActivityList.tsx' com o seguinte código.
         )
     }
 
+O atributo 'divided' em '<Item.Group>' adiciona uma linha divisória entre os itens da lista.
+
 Substitua o código que lista as atividades no componente 'ActivityDashboard' para fazer uso do novo componente.
 
     export default function ActivityDashboard({activities}: Props) {
@@ -883,6 +936,8 @@ Crie a pasta 'details' na pasta 'activities' junto com a pasta 'dashboard'. Crie
         )
     }
 
+No exemplo acima, o atributo 'fluid' faz com que toda extensão lateral seja ocupada e o atributo 'widths' foi usado para garantir que os dois botões permaneçam lado a lado.
+
 Modifique o componente 'ActivityDashboard.tsx' para utilizar o novo componente.
 
     import React from 'react';
@@ -910,6 +965,8 @@ Modifique o componente 'ActivityDashboard.tsx' para utilizar o novo componente.
         )
     }
 
+No exemplo acima, o primeiro registro do array de atividades foi passado como registro selecionado.
+
 Crie a pasta 'form' dentro de activities. Em seguida crie o componente 'ActivityForm.tsx' com o código abaixo.
 
     import React from 'react';
@@ -932,25 +989,36 @@ Crie a pasta 'form' dentro de activities. Em seguida crie o componente 'Activity
         )
     }
 
-Substitua o código do componente 'App.tsx' pelo código abaixo. Repare a definição do 'useState' para 'selectedActivity' e as funções 'handleSelectedActivity' e 'handleCanceledSelectActivity'. Passe a propriedade e as funções criadas como parâmetros do componente 'ActivityDashboard'.
+Substitua o código do componente 'App.tsx' pelo código abaixo.
 
-    import React, { Fragment, useEffect, useState } from 'react';
-    import axios from 'axios';
-    import { Container, Header, List } from 'semantic-ui-react';
+    import { Fragment, useEffect, useState } from 'react';
+    import { Container } from 'semantic-ui-react';
     import { Activity } from '../models/activity';
     import NavBar from './NavBar';
     import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
+    import { v4 as uuid } from 'uuid';
+    import agent from '../api/agent';
 
     function App() {
 
     const [activities, setActivities] = useState<Activity[]>([]);
     const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
+    const [editMode, setEditMode] = useState(false);
 
     useEffect(() => {
-        axios.get<Activity[]>('http://localhost:5000/api/activities').then(response => {
-            setActivities(response.data);
+        agent.Activities.list().then(response => {
+        setActivities(response);
         })
     }, []);
+
+    function handleFormOpen(id?: string) {
+        id ? handleSelectedActivity(id) : handleCanceledSelectActivity();
+        setEditMode(true);
+    }
+
+    function handleFormClose() {
+        setEditMode(false);
+    }
 
     function handleSelectedActivity(id: string) {
         setSelectedActivity(activities.find(o => o.id === id))
@@ -960,15 +1028,32 @@ Substitua o código do componente 'App.tsx' pelo código abaixo. Repare a defini
         setSelectedActivity(undefined);
     }
 
+    function handleCreateOrEditActivity(activity: Activity) {
+        activity.id
+        ? setActivities([...activities.filter(o => o.id !== activity.id), activity])
+        : setActivities([...activities, {...activity, id: uuid()}]);
+        setEditMode(false);
+        setSelectedActivity(activity);
+    }
+
+    function handleDeleteActivity(id: string) {
+        setActivities([...activities.filter(x => x.id !== id)]);
+    }
+
     return (
         <Fragment>
-        <NavBar />
+        <NavBar openForm={handleFormOpen} />
         <Container style={{ marginTop: '7em' }}>
             <ActivityDashboard
-                activities={activities}
-                selectedActivity={selectedActivity}
-                handleSelectedActivity={handleSelectedActivity}
-                handleCanceledActivity={handleCanceledSelectActivity}
+            activities={activities}
+            selectedActivity={selectedActivity}
+            handleSelectedActivity={handleSelectedActivity}
+            handleCanceledActivity={handleCanceledSelectActivity}
+            editMode={editMode}
+            openForm={handleFormOpen}
+            closeForm={handleFormClose}
+            createOrEdit={handleCreateOrEditActivity}
+            deleteActivity={handleDeleteActivity}
             />
         </Container>
         </Fragment>
@@ -976,6 +1061,7 @@ Substitua o código do componente 'App.tsx' pelo código abaixo. Repare a defini
     }
 
     export default App;
+
 
 Atualize o componente 'ActivityDashboard.tsx' para receber a nova propriedade 'selectedActivity' e as funções.
 
@@ -1063,7 +1149,7 @@ Em seguida inclua o novo método como parâmetro 'createOrEdit' do componente 'A
         />
     ...
 
- Na interface 'Props' no componente.
+ Na interface 'Props' no componente 'ActivityDashboard'.
         
     interface Props {
         activities: Activity[];
@@ -1095,7 +1181,11 @@ No 'destructure' dos parâmetros do componente.
 E de maneira semelhante, envie esta propriedade para o componente 'ActivityForm'.
 
     {editMode && (
-        <ActivityForm closeForm={closeForm} activity={selectedActivity} createOrEdit={createOrEdit} />
+        <ActivityForm 
+            closeForm={closeForm} 
+            activity={selectedActivity} 
+            createOrEdit={createOrEdit} 
+        />
     )}
 
 No componente 'ActivityForm' inclua a propriedade na interface e nos parâmetros do componente. E inclua a chamada para função no método 'handleSubmit'.
@@ -1120,7 +1210,7 @@ Algumas libs não possuem arquivos de definição de tipos para o TypeScript e p
     Could not find a declaration file for module 'uuid'...
     Try 'npm i --save-dev @types/uuid' if it exists or add a new declaration (.d.ts) file containing declare module 'uuid';
 
-No caso do módulo 'uuid' o arquivo de definição de tipos existe e será instalado com sucesso.
+O arquivo de definição de tipos existe no módulo 'uuid' e será instalado com sucesso.
 
 Em seguida, altere o método 'handleCreateOrEditActivity' em 'App.tsx' para fazer uso do módulo 'uuid' e gerar um identificador único para novos registros.
 
@@ -1132,8 +1222,54 @@ Em seguida, altere o método 'handleCreateOrEditActivity' em 'App.tsx' para faze
         setSelectedActivity(activity);
     }
 
+Crie o arquivo 'agent.ts' em '/src/app/api' com o código abaixo.
+    
+    import axios, { AxiosResponse } from 'axios';
+    import { Activity } from '../models/activity';
+
+    const sleep = (delay: number) => {
+        return new Promise((resolve) => {
+            setTimeout(resolve, delay)
+        })
+    }
+
+    axios.defaults.baseURL = 'http://localhost:5000/api'
+
+    axios.interceptors.response.use(async response => {
+        try {
+            await sleep(1000);
+            return response;
+        } catch (error) {
+            console.log(error);
+            return await Promise.reject(error);
+        }
+    })
+
+    const responseBody = <T> (response: AxiosResponse<T>) => response.data;
+
+    const requests = {
+        get: <T> (url: string) => axios.get<T>(url).then(responseBody),
+        post: <T> (url: string, body: {}) => axios.post<T>(url, body).then(responseBody),
+        put: <T> (url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
+        del: <T> (url: string) => axios.delete<T>(url).then(responseBody),
+    }
+
+    const Activities = {
+        list: () => requests.get<Activity[]>('/activities')
+    }
+
+    const agent = {
+        Activities
+    }
+
+    export default agent;
 
 
+...
+
+Pacotes necessários para implementar MobX em aplicações React.
+
+    npm install mobx mobx-react-lite
 
 
 

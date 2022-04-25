@@ -57,13 +57,13 @@ Utilize o comando docker build para gerar a imagem.
 
     docker build -t <user-dockerhub>/visits:latest .
 
-Execute o comando docker run redis para obter o container do servidor redis onde as informações das visitas da aplicação NodeJS serão armazenadas.
+Execute o comando 'docker run redis' para obter o container do servidor redis onde as informações das visitas da aplicação NodeJS serão armazenadas.
 
     docker run redis
 
  O Docker CLI fornece um recurso nativo para criar uma conexão de rede entre os containers, pouco utilizado em razão da complexidade de implementação.
 
-Docker Compose é utilizado para inicializar múltiplos containers com recursos de conectividade habilitados automaticamente e automatizar parâmetros passados para o docker run.
+Docker Compose é utilizado para inicializar múltiplos containers com recursos de conectividade habilitados automaticamente e automatizar parâmetros passados para o 'docker run'.
 
 Crie um arquivo docker-compose.yml conforme snipt abaixo.
 
@@ -76,19 +76,19 @@ Crie um arquivo docker-compose.yml conforme snipt abaixo.
             ports:
             - "8081:8081"
 
-Utilize o comando docker-compose up para gerar os containers definidso no arquivo docker-compose.yml. 
+Utilize o comando 'docker-compose up' para gerar os containers definidos no arquivo docker-compose.yml. 
 
     $ docker-compose up
 
-Inclua o parâmetro -build quando houverem alterações nos arquivos e seja necessário recriar os containers.
+Inclua o parâmetro '-build' quando houverem alterações nos arquivos e seja necessário recriar os containers.
 
     $ docker-compose up -build
 
-Utilize docker-compose up -d para inicializar os containers em background.
+Utilize 'docker-compose up -d' para inicializar os containers em background.
 
     $ docker-compose up -d
 
-Você pode para todos os containers em execução com o comando docker-compose down.
+Você pode parar todos os containers em execução com o comando 'docker-compose down'.
 
     $ docker-compose down
 
@@ -111,7 +111,7 @@ Com esta configuração, caso algum erro ocorra na aplicação NodeJS, o contain
 * on-failure - Reinicia o sistema apenas quando houver um código de erro (diferente de zero).
 * unless-stopped - Sempre reinicia a menos que seja finalizado pelo desenvolvedor com o comando docker stop.
 
-Utilize docker-compose ps na mesma pasta onde está armazenado o arquivo docker-compose.yml.
+Utilize 'docker-compose ps' na mesma pasta onde está armazenado o arquivo docker-compose.yml.
 
     $ docker-compose ps
 
