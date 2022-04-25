@@ -12,6 +12,5 @@ Objetivo construir sistemas de informação com foco em inovação e qualidade e
 
 Entre em contato:
 
-* Twitter: @eryxguimaraes
 * Email: eryx.guimaraes@gmail.com
 * Site: http://eryxguimaraes.com.br
