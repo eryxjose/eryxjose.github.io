@@ -34,6 +34,9 @@ A aplicação será desenvolvida utilizando uma abordagem incremental e iterativ
 * React 17 - Frontend client
 * Mobx - State Management System
 
+
+...
+
 # Informações de ajuda e sobre o sistema
 
 Versão do SDK .net instalado
@@ -106,19 +109,31 @@ Abra o menu File > Preferences > Settings e digite 'exclude' na paleta de comand
 
 # Configurações de execução
 
-No projeto 'API' expanda a pasta 'Properties' e abra o arquivo 'launchSettings.json'. Altere a propriedade "LaunchBrowser" para 'false' e remove o url 'https://localhost:5001' da propriedade "applicationUrl".
+No projeto 'API' expanda a pasta 'Properties' e abra o arquivo 'launchSettings.json'. Altere a propriedade "LaunchBrowser" para 'false' e remova o url 'https://localhost:5001' da propriedade "applicationUrl".
 
 Execute a aplicação utilizando o comando 'dotnet run' ou 'dotnet watch run' para atualizar a aplicação automaticamente ao fazer alterações. Ainda não há nenhum endpoint respondendo pelo url raiz do site e portanto uma página '404' será mostrada ao acessar 'http://localhost:5000'.
 
 As configurações do projeto 'webapi' no .NET 5 habilitam o Swagger por padrão. Acesse 'http://localhost:5000/swagger' para visualizar a documentação da API.
 
-No arquivo 'appsettings.Development.json' altere a chave "Microsoft" para 'Information' para exibir mais informações no console.
+No arquivo 'appsettings.Development.json' altere a chave "Microsoft" para 'Information' para exibir mais informações no console, por exemplo, as queries sql geradas pelo Entity Framework.
 
     "Microsoft": "Information",
 
-# Domínio e persistência de dados
+...
 
-Crie a classe 'Activity.cs' no projeto Domain.
+# Domínio e persistência de dados
+Todo projeto de software é criado para atender a uma necessidade específica que determina um domínio ou escopo para a aplicação. O domínio da aplicação portanto, contém entidades relevantes para a solução do problema em questão.
+
+Objetivos:
+* Os usuários podem manter uma lista de atividades
+* Os usuários podem se registrar para participar em atividades de outros usuários.
+  * Os usuários podem visualizar as atividades que estão inscritos para participação.
+* Os usuários podem seguir outros usuários para acompanhar as respectivas atividades.
+* ...
+
+Avaliando os objetivos da aplicação relacionados acima, podemos identificar algumas das entidades principais do sistema e iniciar o seu desenvolvimento.
+
+Crie a classe 'Activity.cs' com as respectivas propriedades no projeto Domain conforme código a seguir.
 
     using System;
     namespace Domain
@@ -135,11 +150,15 @@ Crie a classe 'Activity.cs' no projeto Domain.
         }
     }
 
-Instale a extensão 'NuGet Gallery' no VSCode e utilize a paleta de comando (F1) para abrir a interface de gerenciamento de pacotes NuGet.
+As entidades definidas no modelo de domínio serão utilizadas para geração da base de dados onde estas informações serão persistidas. 
 
-Adicione o pacote NuGet 'Microsoft.EntityFrameworkCore.Sqlite.Core'. Abra a paleta de comando (F1), digite 'NuGet' e selecione 'NuGet Gallery'. Pesquise pelo pacote indicado e selecione o projeto 'Persistence' para instalação. Então clique no botão 'Install'.
+O projeto prevê a utilização do EntityFramework para operações de persistência e recuperação de dados, assim como para manutenção da estrutura da base de dados. O EntityFramework cria uma camada de abstração que permite a utilização de código C# para as operações de leitura e escrita independente do banco de dados em uso.
 
-Crie a classe 'DataContext.cs' no projeto 'Persistence'.
+Para habilitar o uso do EntityFramework no projeto, vamos inicialmente instalar a extensão 'NuGet Gallery' no VSCode e utilizar a paleta de comando (F1) para abrir a interface de gerenciamento de pacotes NuGet. Em seguida, pesquise e instale o pacote 'Microsoft.EntityFrameworkCore.Sqlite.Core' no projeto Persistence utilizando a mesma versão do runtime .net em uso. Utilize o comando 'dotnet info' para verificar as versões de Runtime e SDK em uso no seu sistema.
+
+    > dotnet info
+
+Em seguida, crie a classe 'DataContext.cs' no projeto 'Persistence' conforme exemplo abaixo.
 
     using Domain;
     using Microsoft.EntityFrameworkCore;
@@ -155,9 +174,10 @@ Crie a classe 'DataContext.cs' no projeto 'Persistence'.
         }
     }
 
-Abra o arquivo 'Startup.cs' para configurar o uso do 'DataContext' criado. Você pode navegar utilizando a tecla de atalho 'Ctrl + P' e digitando o nome do arquivo.
+A classe DataContext implementa ou herda de DbContext que permite definir as coleções de entidades que serão controladas pelo EntityFramework, e também permite sobrescrever relacionamentos entre entidades e outras configurações relacionadas ao mapeamento entre a base de dados e o modelo de domínio.
 
-Personalize o vscode para utilizar o prefixo '_' em métodos construtores e desabilite o uso de 'this'. Selecione o menu File > Preferences > Settings e busque por 'private' e adicione o caracter '_' na caixa 'Prefix for generated private member declarations'. Em seguida pesquisa por 'this' e localize 'C# Extensions' na lista e desmarque a caixa 'Use this for Ctor Assignments'. Depois de mudar estas configurações, clique com o direito sobre o parâmetro do método construtor e escolha a opção adequada. O código gerado ficará como exemplo a seguir.
+Abra o arquivo 'Startup.cs' do projeto API para configurar o uso do 'DataContext' criado. Você pode navegar utilizando a tecla de atalho 'Ctrl + P' e digitando o nome do arquivo. O código da classe 'Startup.cs' será refatorado posteriormente
+
 
     ...
     private readonly IConfiguration _config;
@@ -166,6 +186,8 @@ Personalize o vscode para utilizar o prefixo '_' em métodos construtores e desa
         _config = config;
     }
     ...
+
+Você pode personalizar o vscode para utilizar o prefixo '_' em métodos construtores e desabilite o uso de 'this'. Selecione o menu File > Preferences > Settings e busque por 'private' e adicione o caracter '_' na caixa 'Prefix for generated private member declarations'. Em seguida pesquisa por 'this' e localize 'C# Extensions' na lista e desmarque a caixa 'Use this for Ctor Assignments'. Depois de mudar estas configurações, clique com o direito sobre o parâmetro do método construtor e escolha a opção adequada. O código gerado ficará como exemplo a seguir.
 
 No método 'ConfigureService' inclua.
 
@@ -304,7 +326,6 @@ No projeto 'API' crie uma classe 'BaseApiController' com o seguinte código.
         [Route("api/[controller]")]
         public class BaseApiController : ControllerBase
         {
-            
         }
     }
 
