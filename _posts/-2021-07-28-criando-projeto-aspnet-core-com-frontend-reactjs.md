@@ -32,7 +32,7 @@ A aplicação será desenvolvida utilizando uma abordagem incremental e iterativ
 
 * .NET 5.0 - Baixe o .net 5 em 'https://dotnet.microsoft.com/download'
 * React 17 - Frontend client
-* Mobx - State Management System
+* [Mobx - State Management System](www.google.com)
 
 
 ...
@@ -154,7 +154,7 @@ As entidades definidas no modelo de domínio serão utilizadas para geração da
 
 O projeto prevê a utilização do EntityFramework para operações de persistência e recuperação de dados, assim como para manutenção da estrutura da base de dados. O EntityFramework cria uma camada de abstração que permite a utilização de código C# para as operações de leitura e escrita independente do banco de dados em uso.
 
-Para habilitar o uso do EntityFramework no projeto, vamos inicialmente instalar a extensão 'NuGet Gallery' no VSCode e utilizar a paleta de comando (F1) para abrir a interface de gerenciamento de pacotes NuGet. Em seguida, pesquise e instale o pacote 'Microsoft.EntityFrameworkCore.Sqlite.Core' no projeto Persistence utilizando a mesma versão do runtime .net em uso. Utilize o comando 'dotnet info' para verificar as versões de Runtime e SDK em uso no seu sistema.
+Para habilitar o uso do EntityFramework no projeto, vamos inicialmente instalar a extensão 'NuGet Gallery' no VSCode e utilizar a paleta de comando (F1) para abrir a interface de gerenciamento de pacotes NuGet. Em seguida, pesquise e instale o pacote 'Microsoft.EntityFrameworkCore.Sqlite' no projeto Persistence utilizando a mesma versão do runtime .net em uso. Utilize o comando 'dotnet info' para verificar as versões de Runtime e SDK em uso no seu sistema.
 
     > dotnet info
 
