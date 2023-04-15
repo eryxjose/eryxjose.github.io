@@ -5,7 +5,6 @@ title: Implementando OData em Projeto Web Application ASP.NET Core
 date: 
 ---
 
-
 Endpoint para obter lista de alunos.
 
     https://localhost:44344/api/students

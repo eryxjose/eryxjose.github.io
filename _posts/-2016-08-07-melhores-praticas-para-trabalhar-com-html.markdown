@@ -79,12 +79,10 @@ O “CSS reset” é um trecho de código de estilos que tem o objetivo de “li
 
 É recomendado analisar diferentes modelos de CSS Reset com o objetivo de personalizar as especificações de acordo com as necessidades específicas do seu projeto. Observe também que alguns frameworks CSS (ex.: Bootstrap) possuem implementações próprias aplicadas com seu uso.
 
-
-...
-
-
 ## Utilize o elemento adequado no posição correta
+
 O conhecimento sobre o uso correto e adequado dos elementos HTML é muito importante para garantir que a interface apresente o comportamento esperado durante o seu uso. Veja abaixo alguns exemplos de elementos HTML e suas funções:
+
     <p> - Este elemento é usado para definir um parágrafo em um documento HTML.
     <body> - Este elemento é usado para definir o corpo do documento HTML.
     <ul> - Este elemento apresenta uma lista sem numeração. Usado para momentos em que a ordenação não importa.
@@ -92,12 +90,18 @@ O conhecimento sobre o uso correto e adequado dos elementos HTML é muito import
     <em> - Este elemento deve ser usado para dar “enfase” a trechos do documento HTML. Para obter enfatizar ainda mais o trecho, pode-se utilizar também a tag <strong> ou <b>.
     <br> - Este elemento é usado para criar uma quebra de linha em textos. No entanto, é recomendado o uso das propriedades Margin e Padding para aumetar a separação entre parágrafos (<p>), ao invés de <br>.
 
-14. Avalie o código-fonte de outros web sites para observar diferentes abordagens
-Mesmo depois de estar dominando a linguagem HTML, ainda assim é importante observar o código fonte de diferentes web sites e aplicações, com o objetivo de avaliar outras abordagens para situações semelhantes.
-15. Valide o código HTML
-É importante periódicamente fazer validações no código HTML, com o objetivo de verificar a adesão do código aos padrões existentes. No entanto, não é pssível afirmar que um código que esteja totalmente validado, é um excelente código. Da mesma forma, não é possível afirmar que um código que não está totalmente validado, seja uma estrutura HTML ruim.
-16. Minimize as requisições HTTP
-A quantidade de elementos requisitados em uma página ou aplicação web impacta diretamente o seu tempo de carregamento. Este artigo descreve algumas das estratégias para redução do número de requisições HTTP. Entre elas estão a “Combinação de Arquivos”, CSS Sprite e “Combinação de Imagens”, descritas a seguir.
+## Avalie o código-fonte de outros web sites para observar diferentes abordagens
+
+Avalie a estrutura html utilizada por outros websites para avaliar diferentes abordagens para situações semelhantes.
+
+## Valide o código HTML
+
+É importante validar o código HTML, com o objetivo de verificar a conformidade com padrões existentes. A validação pode trazer considerações relevantes para refinar o código e sua semântica que contribuem com a indexação em buscadores ou incrementar os recursos de acessibilidade.
+
+## Minimize as requisições HTTP
+
+A quantidade de elementos requisitados em uma página ou aplicação web impacta diretamente o seu tempo de carregamento. 
+
 17. Combine arquivos de script e de estilos para reduzir o número de requisições
 A combinação de arquivos é uma maneira de reduzir o número de requisições HTTP em aplicações e web sites. A estratégia consiste em unir os diversos arquivos de script em um único arquivo contendo todas as referências, assim como unir todos as referências à arquivos de estilos (CSS) em um único arquivo de requisição.
 18. Reduza as referências a imagens com o método CSS Sprite
@@ -147,8 +151,7 @@ O objetivo desta estratégia é utilizar o tempo de inatividade do browser para 
 34. Reduza o número de elementos DOM
 A quantidade de elementos que compõem uma página impacta diretamente o processamento necessário para execução de códigos JavaScript. A presença de um número excessivo de elementos indica a possibilidade de melhorar a estrutura do layout, e também indica que algumas das recomendações apresentadas aqui não estão sendo seguidas. Para confirmar que o número de elementos usados é excessivo, recomenda-se observar o código de outros sites ou aplicações semelhantes e fazer uma comparação. É possível obter o número total de elementos usando o comando a seguir no console do Firebugs:
 document.getElementsByTagName(‘*’).lenght
-35. Reduza o número de elementos
-Iframe
+35. Reduza o número de elementos Iframe
 Este elementos permite que sejam agrupados diversas páginas HTML em uma única. Existem problemas relacionados as diversas requisições HTTP executadas para cada elemento IFrame e ao carregamento do conteúdo em blocos sem sincronia, além da questão de blocos acessados diretamente através de links apresentados em resultados de buscas onde um bloco é carregado mas sem os outros que compõem a página. Como vantagens, podemos citar a possibilidade de download paralelo de scripts, e também a conveniência de liberar o carregamento de conteúdos adicionais não relacionados ao conteúdo principal da página, como por exemplo, o carregamento de propagandas do tipo ads e banners.
 36. Não exiba o erro 404
 O carregamentos de uma página de erro 404 (erro de arquivo não encontrado) prejudica a experiência de usuário com uma mensagem que não tem nenhuma utilidade. Alguns web sites apresentam páginas de erro personalizadas onde são oferecidas sugestões sobre o provavel conteúdo que os usuários pretendem acessar.

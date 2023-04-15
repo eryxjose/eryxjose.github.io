@@ -5,7 +5,7 @@ title: Configuração para confirmação de email no ASP.NET Identity
 date: 10/07/2019
 ---
 
-A regra inicial para validação de confirmação do email inicialmente foi implementada através de configuração do middleware na classe startup.cs de maneira que as requisições para a aplicação são interceptadas e validadas antes que o endpoint seja executado. Neste cenário, a aplicação retornará um erro 400 de requisição inválida.
+A regra inicial para validação de confirmação do email inicialmente foi implementada através de configuração do middleware na classe 'startup.cs' de maneira que as requisições para a aplicação são interceptadas e validadas antes que o endpoint seja executado. Neste cenário, a aplicação retornará um erro 400 de requisição inválida.
 
 	...
 	
@@ -27,7 +27,8 @@ Posteriormente houve uma demanda de mensagem de erro personalizada para o caso d
 		ViewData["ReturnUrl"] = returnUrl;
 		if (ModelState.IsValid)
 		{
-			var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+			var result = await _signInManager.PasswordSignInAsync(
+				model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
 
 			if (result.Succeeded)
 			{
@@ -54,7 +55,8 @@ Posteriormente houve uma demanda de mensagem de erro personalizada para o caso d
 
 			if (result.RequiresTwoFactor)
 			{
-				return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+				return RedirectToAction(nameof(LoginWith2fa), 
+					new { returnUrl, model.RememberMe });
 			}
 
 			if (result.IsLockedOut)
@@ -74,7 +76,7 @@ Posteriormente houve uma demanda de mensagem de erro personalizada para o caso d
 	}
 
 
-No exemplo acima, primeiro ocorre a validação do objeto LoginViewModel através do método ModelState.IsValid. Em seguida, a variável result recebe o resultado da validação de acesso e então obtemos o usuário e a verificamos a confirmação do email. Caso o email não tenha sido confirmado, é feito o signout do usuário e retornado uma instância de ObjectResult contendo o código do erro 403 (Unauthorized) e detalhes adicionais.
+No exemplo acima, primeiro ocorre a validação do objeto 'LoginViewModel' através do método 'ModelState.IsValid'. Em seguida, a variável 'result' recebe o resultado da validação de acesso e então obtemos o usuário e verificamos a confirmação do email. Caso o email não tenha sido confirmado, é feito o signout do usuário e retornada uma instância de 'ObjectResult' contendo o código do erro 403 (Unauthorized).
 
 Para atender a solicitação de mensagem de erro personalizada para email não confirmado, foi necessário remover a validação feita no middleware para que o endpoint de login pudesse verificar a confirmação de email do usuário.
 

@@ -30,14 +30,34 @@ Inclua o middleware JWTBearer em ConfigureServices na classe startup.cs do seu p
 				};
 			});
 
+Caso seja necessário adicionar diferentes issuers de tokens jwt, defina multiplos '.AddJwtBearer' com diferentes álias. Mantenha sem álias a configuração que deseja utilizar por padrão. Por exemplo: 
+
+	services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+		.AddJwtBearer(options =>
+			{
+				options.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuer = true,
+					ValidateAudience = true,
+					ValidateLifetime = true,
+					ValidateIssuerSigningKey = true,
+					ValidIssuer = Configuration["Jwt:Issuer"],
+					ValidAudience = Configuration["Jwt:Issuer"],
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+				};
+			})
+		.AddJwtBearer("AnotherIssuer", options =>
+			{
+				// Configurações para o segundo issuer
+			});
+
 Será necessário resolver e ou referênciar as seguintes dependências
 
 	using Microsoft.AspNetCore.Authentication.JwtBearer;
 	using Microsoft.IdentityModel.Tokens;
 	using System.Text;
 
-
-Incluir chave de configuração para fornecer Key e Issuer para as requisições JWT no arquivo appsettings.json.
+Inclua a chave de configuração para fornecer Key e Issuer para as requisições JWT no arquivo appsettings.json.
 	
 	{
 	  "ConnectionStrings": {
@@ -50,9 +70,7 @@ Incluir chave de configuração para fornecer Key e Issuer para as requisições
 	  "Application": {
 	...
 
-Criar TokenController para fornecer endpoint para criação de tokens JWT em TokenController.cs.
-
-Este controller inicializa SignInManager<ApplicationUser> no construtor para ter acesso aos métodos de autenticação ASP.NET por usuário e senha.
+Crie a classe 'TokenController.cs' para fornecer endpoint para criação de tokens JWT. Este controller inicializa 'SignInManager<ApplicationUser>' utilizando Injeção de Dependência no construtor para ter acesso aos métodos de autenticação ASP.NET por usuário e senha.
 
 	private IConfiguration _config;
 	private readonly SignInManager<ApplicationUser> _signInManager;
@@ -78,7 +96,7 @@ As classes LoginModel e UserModel representam as informações de login e usuár
 		public DateTime Birthdate { get; set; }
 	}
 
-O método CreateTokenAsyn coordena a geração do token JWT.
+O método 'CreateTokenAsync' coordena a geração do token JWT.
 	
 	[AllowAnonymous]
 	[HttpPost]
@@ -96,7 +114,7 @@ O método CreateTokenAsyn coordena a geração do token JWT.
 		return response;
 	}
 
-O método AuthenticateAsync valida usuário e senha informados.
+O método 'AuthenticateAsync' valida usuário e senha informados.
 
 	private async Task<LoginViewModel> AuthenticateAsync(LoginModel login)
 	{
@@ -114,7 +132,7 @@ O método AuthenticateAsync valida usuário e senha informados.
 		return null;
 	}
 
-A autenticação do código acima utiliza o método PasswordSignInAsync da instância de SigninManager<ApplicationUser> mas você pode autenticar o usuário e senha por diferentes métodos de autenticação contanto que o retorno seja uma instância de LoginViewModel. Por exemplo:
+A autenticação do código acima utiliza o método PasswordSignInAsync da instância de 'SigninManager<ApplicationUser>' mas você pode autenticar o usuário e senha por diferentes métodos de autenticação contanto que o retorno seja uma instância de LoginViewModel. Por exemplo:
 
 	private UserModel Authenticate(LoginModel login)
 	{

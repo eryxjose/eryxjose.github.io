@@ -8,7 +8,7 @@ date: 04/02/2021
 Este tutorial descreve a criação de uma aplicação web para enviar pesquisas por email.
 
 ## Arquitetura
-
+  
 ReactJS Web Application
 Express/NodeJS API
 MongoDB
@@ -27,7 +27,7 @@ Inclua o código abaixo no arquivo index.js.
     const express = require('express');
     const app = express();
 
-    app.get('/', (req, res) => {
+    app.get('/', (req, res) => {    
         res.send({ hi: 'there'});
     });
 
@@ -60,6 +60,10 @@ Heroku disponibiliza uma porta específica para executar sua aplicação.
 Inclua a linha a seguir no arquivo index.js. A linha abaixo, obtém a porta definida na varável de ambiente 'PORT'. Esta informação será preenchida automaticamente pelo servidor Heroku quando a aplicação for iniciada. Caso a variável não esteja definida, o valor '5000' será utilizado.
 
     const PORT = process.env.PORT || 5000;
+
+Você pode modificar manualmente o valor de uma variável de ambiente no linux, por exemplo 'PORT' utilizando o comando 'export'.
+
+    $ export PORT=5000
 
 ## Specify Node Environment
 
@@ -273,7 +277,7 @@ O módulo acima, será importado e inicializado em index.js conforme exemplo aba
 
 Observe também que a referência para 'services/passport' não precisa ser atribuída a nenhuma variável. Apenas referênciada para que os serviços definidos em passport.js sejam inicializados.
 
-Em seguida refatore o código de index.js para eliminar a variável 'authRoutes' e passar o parâmetro 'app' junto com o comando "require('./routes/authRoutes')".
+Podemos refatorar o código acima para que não seja necessário definir uma variável 'authRoutes'. No exemplo abaixo, a referência ao módulo './routes/authRoutes' e passagem do parâmetro 'app' são feitos em uma única linha.
 
     const express = require('express');
     require('./services/passport');
@@ -323,7 +327,7 @@ Modifique o código da 'index.js' conforme exemplo a seguir. Observe as referên
     app.listen(PORT);
 
 
-Crie uma pasta 'models' na rais do projeto, e dentro dela, o arquivo 'User.js'. Este arquivo será utilizado para criar uma classe de modelo mongoose para representar uma coleção mongodb. As propriedades e respectivos tipos de dados das coleções são definidas utilizando a propriedade 'Schema'. O comando 'mongoose.model' registra o Schema como uma classe de modelo de dados que representa a coleção (MongoDB Collection) Users. 
+Crie uma pasta 'models' na raiz do projeto, e dentro dela, o arquivo 'User.js'. Este arquivo será utilizado para criar uma classe de modelo mongoose para representar uma coleção mongodb. As propriedades e respectivos tipos de dados das coleções são definidas utilizando a propriedade 'Schema'. O comando 'mongoose.model' registra o Schema como uma classe de modelo de dados que representa a coleção (MongoDB Collection) Users. 
 
     const mongoose = require('mongoose');
     const { Schema } = mongoose;

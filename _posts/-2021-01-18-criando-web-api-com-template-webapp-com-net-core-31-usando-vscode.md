@@ -7,12 +7,12 @@ date: 26/01/2021
 
 Vamos criar uma aplicação Web API utilizando o template Web App para tirar proveito das configurações de autenticação pré-definidas e construir um exemplo de loja de livros onde uma aplicação Blazor interage com uma Web API.
 
-A utilização do template webapp agiliza a criação do projeto webapi no sentido de disponibilizar configurações pré-definidas e também evitar o tempo gasto para remover algumas configurações não utilizadastemplate. Especificamente:
+A utilização do template webapp agiliza a criação do projeto webapi no sentido de disponibilizar configurações pré-definidas e também evitar o tempo gasto para remover algumas configurações não utilizadas, especificamente:
 
 * Bibliotecas necessárias para uso de Identity
 * Bibliotecas necessárias para EntityFrameworkCore.
 * Configurações de Middleware para Entity Framework e Identity
-* Arquitevos de dados necessários (ApplicationDbContext e Migration)
+* Arquivos de dados necessários (ApplicationDbContext e Migration)
 
 Esta Web API será então utilizada como uma camada de serviços para aplicação Blazor.
 
