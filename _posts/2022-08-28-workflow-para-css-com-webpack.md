@@ -28,8 +28,6 @@ Considere uma aplicação cliente NodeJS com a seguinte estrutura
     package.json
     webpack.config.js
 
-As configurações de webpack para gerar o arquivo bundle.js foi descrita no tópico 'Conceitos básicos do WebPack'.
-
 O bundle de arquivos .css utilizando webpack requer a instalação dos módulos 'css-loader' e 'style-loader'.
 
     $ npm install css-loader style-loader --save-dev

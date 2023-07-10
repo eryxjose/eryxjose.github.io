@@ -13,6 +13,7 @@ Dois projetos serão desenvolvidos em paralelo: 1) Arquitetura disponibilizada n
 
 ...
 
+
 Por exemplo, para construir a tela para exibir a lista de registros de atividades, teremos inicialmente as seguintes 'user stories':
 
 * No papel de usuário registrado, quero visualizar uma lista com todas as atividades com data de realização para o dia atual e posteriores para saber mais sobre as opções disponíveis.
@@ -379,7 +380,12 @@ Vamos criar um projeto ReactJS que irá consumir os dados da API para construir 
 
     npx create-react-app client-app --use-npm --template typescript
 
-Depois de criada a aplicação, substitua a função 'App' do arquivo 'App.tsx' pelo código abaixo.
+
+Depois de criada a aplicação, abra o terminal, alterne para pasta 'client-app' e instale a biblioteca 'axios'.
+
+    npm install axios
+
+Substitua a função 'App' do arquivo 'App.tsx' pelo código abaixo para obter as atividades utilizando o endpoint '/api/activities'.
 
     function App() {
         const [activities, setActivities] = useState([]);
@@ -406,10 +412,6 @@ Depois de criada a aplicação, substitua a função 'App' do arquivo 'App.tsx' 
             </div>
         );
     }
-
-No terminal, alterne para pasta 'client-app' e instale a biblioteca 'axios'.
-
-    npm install axios
 
 No método 'ConfigureServices' da classe 'Startup.cs' no projeto da API, adiciona uma 'Policy Cors' para permitir o acesso da aplicação cliente. 
 
@@ -450,9 +452,6 @@ Altere o método 'return' em 'App.tsx'.
     );
     ...
 
-
-
-
 Instale o pacote NuGet 'MediatR.Extensions.Microsoft.DependencyInjection by Jimmy Bogard' no projeto 'Application'.
 
 O 'MediatR' pode ser consumido diretamente nos Controllers ou pode ser definido em um Controller base herdado pelos demais. Veja abaixo o exemplo de instância em ActivitiesController.
@@ -479,7 +478,7 @@ O 'MediatR' pode ser consumido diretamente nos Controllers ou pode ser definido 
         }
     }
 
-Veja abaixo a implementação utilizando um controller base.
+A seguir, a implementação utilizando um controller base.
 
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
@@ -1291,6 +1290,40 @@ Crie o arquivo 'agent.ts' em '/src/app/api' com o código abaixo.
 Pacotes necessários para implementar MobX em aplicações React.
 
     npm install mobx mobx-react-lite
+
+
+
+...
+
+## Rolagem Infinita
+
+Acesse a pasta do projeto React (client-app), abra o terminal e instale o pacote 'react-inifinite-scroller'
+
+    npm install react-inifinite-scroller
+
+No caso de mensagem informando problemas com relação a versão do React utilizada no ambiente de desenvolvimento, faça a instalação utilizando uma das duas opções descritas na mensagem de erro do terminal: --force ou --legacy-peer-deps. Por exemplo: 
+
+    npm install react-inifinite-scroller --legacy-peer-deps
+
+No caso de projetos com TypeScript, instale o arquivo de definições conforme exemplo a seguir.
+
+    npm install @types/react-inifinite-scroller
+
+Na aplicação, utilize o componente '<ActivityList>' dentro do componente '<InfiniteScroll>'. 
+
+Configure o componente com os parâmetros ilustrados abaixo.
+
+    <InfiniteScroll
+        pageStart={0}
+        loadMore={handleGetNext}
+        hasMore={!loadingNext && !!pagination && pagination.currentPage < pagination.totalPages}
+        initialLoad={false}
+    >
+        <ActivityList />
+    </InfiniteScroll>
+
+
+
 
 
 
